@@ -68,6 +68,14 @@ eval "$(starship init zsh)"
 eval "$(uv generate-shell-completion zsh)"
 
 ###################################
+# MAKE fzf tab work for tmuxifier completions
+###################################
+_tmuxifier_compat() {
+  compadd -- $(tmuxifier commands)
+}
+compdef _tmuxifier_compat tmuxifier
+
+###################################
 # ALIASES
 ###################################
 alias vz='nvim ~/.zshrc'
@@ -150,3 +158,12 @@ setopt INC_APPEND_HISTORY      # save incrementally after each command
 setopt SHARE_HISTORY           # share history across terminals
 setopt HIST_IGNORE_DUPS        # ignore duplicates
 setopt HIST_REDUCE_BLANKS      # remove extra blanks
+
+
+###################################
+# STARSHIP DOUBLE WRAPPING AFTER SOURCING FIX
+###################################
+if [[ -z ${functions[starship_zle-keymap-select-wrapped]+x} ]]; then
+  functions[starship_zle-keymap-select-wrapped]=$functions[zle-keymap-select]
+  zle -N zle-keymap-select starship_zle-keymap-select
+fi
