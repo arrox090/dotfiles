@@ -6,13 +6,16 @@ opt.number = true
 
 -- clipboard
 if vim.fn.getenv("WAYLAND_DISPLAY") == vim.NIL then
-  local provider = vim.g.clipboard or ""
-  if provider == "" or provider:match("tmux") then
-    vim.g.clipboard = "osc52"
-  end
+	if vim.loop.os_uname().sysname ~= "Darwin" then
+		local provider = vim.g.clipboard or ""
+		if provider == "" or provider:match("tmux") then
+			vim.g.clipboard = "osc52"
+		end
+	end
 else
-  vim.g.clipboard = "wl-copy"
+	vim.g.clipboard = "wl-copy"
 end
+
 opt.clipboard:append("unnamedplus")
 
 -- Search
