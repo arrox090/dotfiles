@@ -32,10 +32,6 @@ zinit light-mode for \
 ###################################
 autoload -Uz compinit && compinit
 
-eval "$(tmuxifier init -)"
-eval "$(starship init zsh)"
-eval "$(uv generate-shell-completion zsh)"
-
 ###################################
 # PLUGINS
 ###################################
@@ -43,7 +39,7 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
-zinit ice wait silent; zinit light jeffreytse/zsh-vi-mode
+zinit light jeffreytse/zsh-vi-mode
 
 ###################################
 # MANUALLY INSTALLED TOOLS
@@ -62,6 +58,14 @@ export ZVM_VI_EDITOR="$EDITOR"
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 # export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+
+
+###################################
+# EVAL
+###################################
+eval "$(tmuxifier init -)"
+eval "$(starship init zsh)"
+eval "$(uv generate-shell-completion zsh)"
 
 ###################################
 # ALIASES
@@ -82,35 +86,6 @@ alias nv='nvim'
 ###################################
 # KEYBINDS
 ###################################
-bindkey -r "^J"
-bindkey -r "^K"
-bindkey -r "^L"
-bindkey -r "^H"
-
-###################################
-# OPTIONS
-###################################
-setopt CORRECT
-
-###################################
-# COPY TOOL FOR COPYING WHEN IN SSH (osc52)
-###################################
-if [[ "$os" == "Linux" ]]; then
-  rclip() {
-    local text
-    text=$(cat)
-    local b64
-    b64=$(printf '%s' "$text" | base64 | tr -d '\n')
-    printf '\033]52;c;%s\a' "$b64"
-  }
-fi
-
-
-
-###################################
-# COMMAND AND KEYBIND TO SEARCH HISTORY FROM ALREADY TYPED PROMPT
-###################################
-bindkey -r '^R'
 fzf-history-widget() {
   local orig_buffer=$BUFFER     # save what was typed
   local orig_cursor=$CURSOR
@@ -131,8 +106,36 @@ fzf-history-widget() {
   zle reset-prompt
 }
 zle -N fzf-history-widget
-bindkey '^R' fzf-history-widget
 
+function bind_keys_after_everything() {
+  bindkey -v
+  bindkey -r '^L'
+  bindkey -r '^K'
+  bindkey -r '^J'
+  bindkey -r '^H'
+  bindkey -r '^R' 
+  bindkey '^R' fzf-history-widget
+}
+
+add-zsh-hook precmd bind_keys_after_everything
+
+###################################
+# OPTIONS
+###################################
+setopt CORRECT
+
+###################################
+# COPY TOOL FOR COPYING WHEN IN SSH (osc52)
+###################################
+if [[ "$os" == "Linux" ]]; then
+  rclip() {
+    local text
+    text=$(cat)
+    local b64
+    b64=$(printf '%s' "$text" | base64 | tr -d '\n')
+    printf '\033]52;c;%s\a' "$b64"
+  }
+fi
 
 ###################################
 # COMMAND HISTORY SETTINGS
