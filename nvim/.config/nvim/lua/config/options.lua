@@ -5,6 +5,14 @@ opt.relativenumber = true
 opt.number = true
 
 -- clipboard
+if vim.fn.getenv("WAYLAND_DISPLAY") == vim.NIL then
+  local provider = vim.g.clipboard or ""
+  if provider == "" or provider:match("tmux") then
+    vim.g.clipboard = "osc52"
+  end
+else
+  vim.g.clipboard = "wl-copy"
+end
 opt.clipboard:append("unnamedplus")
 
 -- Search

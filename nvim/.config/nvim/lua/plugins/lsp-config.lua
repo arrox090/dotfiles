@@ -29,12 +29,11 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- local lspconfig = vim.lsp.config
-      local lspconfig = require("lspconfig")
-      lspconfig.pyright.setup({
+      local lspconfig = vim.lsp.config
+      lspconfig("pyright", {
         capabilities = capabilities,
       })
-      lspconfig.lua_ls.setup({
+      lspconfig("lua_ls", {
         capabilities = capabilities,
       })
 
