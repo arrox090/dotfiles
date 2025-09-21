@@ -8,7 +8,6 @@ return {
 			"andrew-george/telescope-themes",
 		},
 		config = function()
-			local builtin_schemes = require("telescope._extensions.themes").builtin_schemes
 			local telescope = require("telescope")
 			telescope.setup({
 				defaults = {
@@ -26,11 +25,19 @@ return {
 			})
 
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-			vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope live grep" })
-			vim.keymap.set("n", "<leader>en", function()
-				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "Telescope live grep" })
+
+			vim.keymap.set("n", "<leader>ff", function()
+				my_telescope_search("find_files")
+			end, { desc = "Telescope find files" })
+			vim.keymap.set("n", "<leader>fs", function()
+				my_telescope_search("live_grep")
+			end, { desc = "Telescope find string" })
+			vim.keymap.set("n", "<leader>fn", function()
+				my_telescope_search("find_files", { cwd = vim.fn.stdpath("config") })
+			end, { desc = "Telescope find files in nvim config directory" })
+			vim.keymap.set("n", "<leader>fh", function()
+				my_telescope_search("find_files", { cwd = vim.fn.expand("~") })
+			end, { desc = "Telescope find files in home directory" })
 		end,
 	},
 	{

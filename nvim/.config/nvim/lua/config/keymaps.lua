@@ -20,16 +20,22 @@ keymap("n", "N", "Nzzzv")
 keymap("i", "jk", "<ESC>")
 keymap("t", "jk", "<C-\\><C-n>", { silent = true })
 
--- command to enter terminal
-keymap(
-  "n",
-  "<leader>ot",
-  ":split | resize 20 | startinsert | term<CR>",
-  { desc = "Open terminal in split window below", noremap = true }
-)
+-- insert empty line below
+keymap("n", "<CR>", "o<ESC>")
+
+-- Go the the previously open file
+keymap("n", "<leader><tab>", "<C-^>", { desc = "Go to previous file" })
+
+-- -- command to enter terminal
+-- keymap(
+-- 	"n",
+-- 	"<leader>ot",
+-- 	":split | resize 20 | startinsert | term<CR>",
+-- 	{ desc = "Open terminal in split window below", noremap = true }
+-- )
 
 -- navitage vim panes
-keymap("n", "<c-k>", ":wincmd k<CR>", { desc = "Open split up" })
-keymap("n", "<c-j>", ":wincmd j<CR>", { desc = "Open split down" })
-keymap("n", "<c-h>", ":wincmd h<CR>", { desc = "Open split left" })
-keymap("n", "<c-l>", ":wincmd l<CR>", { desc = "Open split right" })
+keymap("n", "<C-h>", "<C-w>h", { desc = "Go to left split" })
+keymap("n", "<C-j>", "<C-w>j", { desc = "Go to below split" })
+keymap("n", "<C-k>", "<C-w>k", { desc = "Go to above split" })
+keymap("n", "<C-l>", "<C-w>l", { desc = "Go to right split" })
