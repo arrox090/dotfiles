@@ -100,7 +100,7 @@ fzf-history-widget() {
 
   # run fzf on history
   local selected
-  selected=$(history 1 | awk '{$1=""; print substr($0,2)}' | fzf --tac --query "$LBUFFER") 
+  selected=$(fc -rl 1 | awk '{$1=""; print substr($0,2)}' | awk '!seen[$0]++' | fzf --tac --query "$LBUFFER") 
 
   if [[ -n $selected ]]; then
     BUFFER=$selected
@@ -154,10 +154,10 @@ HISTFILE=~/.zsh_history
 
 # Append to history file instead of overwriting
 setopt APPEND_HISTORY
-setopt INC_APPEND_HISTORY      # save incrementally after each command
+setopt INC_APPEND_HISTORY      # save after each command
 setopt SHARE_HISTORY           # share history across terminals
-setopt HIST_IGNORE_DUPS        # ignore duplicates
-setopt HIST_REDUCE_BLANKS      # remove extra blanks
+setopt HIST_IGNORE_DUPS        # ignore consecutive duplicates
+setopt HIST_REDUCE_BLANKS      # strip the command string
 
 
 ###################################
