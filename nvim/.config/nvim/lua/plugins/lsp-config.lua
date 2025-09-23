@@ -20,7 +20,7 @@ return {
 		},
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "pyright", "lua_ls" },
+				ensure_installed = { "pyright", "lua_ls", "bashls" },
 			})
 		end,
 	},
@@ -34,6 +34,9 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig("lua_ls", {
+				capabilities = capabilities,
+			})
+			lspconfig("bashls", {
 				capabilities = capabilities,
 			})
 

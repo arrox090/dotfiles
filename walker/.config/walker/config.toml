@@ -7,6 +7,8 @@ exact_search_prefix = "'"       # disable fuzzy searching
 theme = "mocha"               # theme to use
 disable_mouse = false           # disable mouse (on input and list only)
 
+# font-family = "FiraCode Nerd Font"
+
 [shell]
 anchor_top = true
 anchor_bottom = true
@@ -18,11 +20,11 @@ anchor_right = true
 
 [keybinds]
 close = "Escape"
-# next = "Down"
-# previous = "Up"
+next = "ctrl n"
+previous = "ctrl p"
 toggle_exact = "ctrl e"
 resume_last_query = "ctrl r"
-quick_activate = ["F1", "F2", "F3", "F4"]
+quick_activate = []
 
 [providers]
 default = [
