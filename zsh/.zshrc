@@ -36,6 +36,7 @@ autoload -Uz compinit && compinit
 # PLUGINS
 ###################################
 zinit light zdharma-continuum/fast-syntax-highlighting
+# zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
@@ -167,3 +168,14 @@ if [[ -z ${functions[starship_zle-keymap-select-wrapped]+x} ]]; then
   functions[starship_zle-keymap-select-wrapped]=$functions[zle-keymap-select]
   zle -N zle-keymap-select starship_zle-keymap-select
 fi
+
+
+
+alias nvim-lazy='NVIM_APPNAME="nvim-lazyvim" nvim'
+# rm -rf ~/.config/nvim-lazyvim ~/.local/share/nvim-lazyvim ~/.cache/nvim-lazyvim ~/.local/state/nvim-lazyvim
+
+alias nvim-nvchad='NVIM_APPNAME="nvim-nvchad" nvim'
+# rm -rf ~/.config/nvim-nvchad ~/.local/share/nvim-nvchad ~/.cache/nvim-nvchad ~/.local/state/nvim-nvchad
+
+alias nvim-astro='NVIM_APPNAME="nvim-astronvim" nvim'
+# rm -rf ~/.config/nvim-astronvim ~/.local/share/nvim-astronvim ~/.cache/nvim-astronvim ~/.local/state/nvim-astronvim
