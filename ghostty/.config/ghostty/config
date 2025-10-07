@@ -34,6 +34,9 @@ theme = Catppuccin Mocha
 
 background-opacity = 0.95
 
+# So I can go to next line in claude code
+keybind = shift+enter=text:\x1b\r
+
 # window-padding-x = 2
 #
 # # Spacing around the equals sign does not matter.

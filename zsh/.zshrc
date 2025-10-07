@@ -66,7 +66,7 @@ export PATH="$HOME/.tmuxifier/bin:$PATH"
 ###################################
 eval "$(tmuxifier init -)"
 eval "$(starship init zsh)"
-eval "$(uv generate-shell-completion zsh)"
+# eval "$(uv generate-shell-completion zsh)"
 
 ###################################
 # MAKE fzf tab work for tmuxifier completions
@@ -89,8 +89,12 @@ else
   alias pydir='function _pydir(){ cd ~/Projects/python/"$1"; }; _pydir'
 fi
 
+alias runcpp='function _runcpp(){ g++ "$1" -o main && ./main; }; _runcpp'
+
 alias c='clear'
 alias nv='nvim'
+alias ls='eza -l --icons=always'
+alias ..='cd ..'
 
 ###################################
 # KEYBINDS

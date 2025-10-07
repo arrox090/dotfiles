@@ -21,6 +21,8 @@ local function run_file()
 		language_command = "lua"
 	elseif file_extension == "c" then
 		language_command = "runc"
+	elseif file_extension == "cpp" then
+		language_command = "runcpp"
 	elseif file_extension == "html" then
 		language_command = "open"
 	end
