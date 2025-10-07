@@ -11,6 +11,8 @@ return {
 				ensure_installed = {
 					"ruff",
 					"stylua",
+					"cpplint",
+					"clang-format",
 				},
 			})
 		end,
@@ -24,6 +26,8 @@ return {
 					require("none-ls.formatting.ruff"),
 					require("none-ls.diagnostics.ruff"),
 					null_ls.builtins.formatting.stylua,
+					null_ls.builtins.formatting.clang_format,
+					null_ls.builtins.diagnostics.cpplint,
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then
