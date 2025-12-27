@@ -26,7 +26,7 @@
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
 
-font-family = FiraCode Nerd Font Mono
+font-family = JetBrainsMono Nerd Font Mono
 font-size = 16
 
 # theme = Atom One Dark

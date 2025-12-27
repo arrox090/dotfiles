@@ -67,6 +67,7 @@ export BAT_THEME="Catppuccin Mocha"
 ###################################
 eval "$(tmuxifier init -)"
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 # eval "$(uv generate-shell-completion zsh)"
 
 ###################################
@@ -95,6 +96,7 @@ alias runcpp='function _runcpp(){ g++ "$1" -o main && ./main; }; _runcpp'
 alias c='clear'
 alias nv='nvim'
 alias ls='eza -l --icons=always'
+alias cd="z"
 alias ..='cd ..'
 
 ###################################
