@@ -46,9 +46,9 @@ zinit light jeffreytse/zsh-vi-mode
 # MANUALLY INSTALLED TOOLS
 ###################################
 
-if [[ "$os" == "Linux" ]]; then
-  . "$HOME/.local/share/../bin/env"
-fi
+# if [[ "$os" == "Linux" ]]; then
+#   . "$HOME/.local/share/../bin/env"
+# fi
 
 ###################################
 # ENV
@@ -96,7 +96,18 @@ alias runcpp='function _runcpp(){ g++ "$1" -o main && ./main; }; _runcpp'
 alias c='clear'
 alias nv='nvim'
 alias ls='eza -l --icons=always'
-alias cd="z"
+
+alias cd="zd"
+zd() {
+  if [ $# -eq 0 ]; then
+    builtin cd ~ && return
+  elif [ -d "$1" ]; then
+    builtin cd "$1"
+  else
+    z "$@" && printf "\U000F17A9 " && pwd || echo "Error: Directory not found"
+  fi
+}
+
 alias ..='cd ..'
 
 ###################################
