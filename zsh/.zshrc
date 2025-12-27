@@ -59,6 +59,7 @@ export ZVM_VI_EDITOR="$EDITOR"
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 # export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+export BAT_THEME="Catppuccin Mocha"
 
 
 ###################################
