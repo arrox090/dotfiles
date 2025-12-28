@@ -43,12 +43,12 @@ zinit light Aloxaf/fzf-tab
 zinit light jeffreytse/zsh-vi-mode
 
 ###################################
-# MANUALLY INSTALLED TOOLS
+# MY OWN SCRIPTS/TOOLS
 ###################################
 
-# if [[ "$os" == "Linux" ]]; then
-#   . "$HOME/.local/share/../bin/env"
-# fi
+if [[ "$os" == "Linux" ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
 
 ###################################
 # ENV
