@@ -1,0 +1,115 @@
+/* Catppuccin Mocha colors */
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+@define-color text #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color subtext1 #bac2de;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+@define-color overlay0 #6c7086;
+@define-color overlay1 #7f849c;
+@define-color mauve #cba6f7;
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+
+window {
+  background: transparent;
+}
+
+.main {
+  padding: 8px;
+  margin: 10px;
+  border-radius: 16px;
+  border: 2px solid @mauve;
+  background-color: @base;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  min-height: 50px;
+}
+
+text {
+  min-height: 32px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: @text;
+  font-size: 1rem;
+}
+
+.matches {
+  background-color: transparent;
+  border-radius: 12px;
+  /* Limit visible matches - use min-height approach */
+  min-height: 0px;
+}
+
+.plugin:first-child {
+  margin-top: 6px;
+}
+
+.plugin.info {
+  min-width: 200px;
+}
+
+.plugin {
+  background-color: transparent;
+}
+
+.match {
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 8px;
+  min-height: 40px;
+}
+
+.match .title {
+  color: @text;
+  padding: 4px 0;
+  font-size: 0.95rem;
+}
+
+.match .description {
+  font-size: 0.75rem;
+  color: @subtext0;
+}
+
+.plugin.info label {
+  font-size: 0.9rem;
+  color: @lavender;
+  font-weight: 600;
+}
+
+.match:selected {
+  border-left: 4px solid @mauve;
+  background: @surface0;
+  animation: fade 0.15s ease-in-out;
+}
+
+.match:hover {
+  background: @surface0;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Input field */
+entry {
+  background: @mantle;
+  color: @text;
+  border: 1px solid @surface1;
+  border-radius: 8px;
+  padding: 8px;
+  caret-color: @mauve;
+}
+
+entry:focus {
+  border-color: @mauve;
+}
