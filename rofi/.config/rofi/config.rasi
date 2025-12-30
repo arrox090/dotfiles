@@ -10,5 +10,4 @@ configuration {
   kb-cancel: "Control+h";
 }
 
-// @theme "catppuccin-default"
-@theme "cat-test"
+@theme "catppuccin-default"
