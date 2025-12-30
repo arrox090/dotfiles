@@ -1,0 +1,5 @@
+typer=ydotool
+
+keybindings=Return:type:password,Tab:type:username,Control+l:type:menu
+menu-keybindings=Return:type
+no-help=True

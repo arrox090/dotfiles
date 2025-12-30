@@ -57,10 +57,6 @@ Config(
       action: Select, 
     ),
     Keybind(
-      key: "Escape",
-      action: Close
-    ),
-    Keybind(
       key: "k",
       action: Up, 
       ctrl: true
@@ -71,14 +67,19 @@ Config(
       ctrl: true
     ),
     Keybind(
-      key: "p",
-      action: Up, 
+      key: "h",
+      action: Close, 
       ctrl: true
     ),
-    Keybind(
-      key: "n",
-      action: Down, 
-      ctrl: true
-    )
+    // Keybind(
+      // key: "p",
+      // action: Up, 
+      // ctrl: true
+    // ),
+    // Keybind(
+      // key: "n",
+      // action: Down, 
+      // ctrl: true
+    // )
   ],
 )

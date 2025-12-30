@@ -1,0 +1,14 @@
+configuration {
+  kb-remove-to-eol: "";
+  kb-accept-entry: "";
+  kb-element-next: "";
+  kb-element-previous: "";
+  kb-mode-complete: "";
+  kb-remove-char-back: "BackSpace";
+  kb-row-up: "Control+k";
+  kb-row-down: "Control+j";
+  kb-cancel: "Control+h";
+}
+
+// @theme "catppuccin-default"
+@theme "cat-test"
