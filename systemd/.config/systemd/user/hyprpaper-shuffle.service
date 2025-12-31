@@ -1,0 +1,6 @@
+[Unit]
+Description=Shuffle hyprpaper wallpapers
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/hyprpaper-shuffle

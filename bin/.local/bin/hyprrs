@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# hyprrs - Hyprland(hypr) Reload(r) Service(s)
+
+# Check if service name was provided
+if [ -z "$1" ]; then
+    echo "Usage: hyprrs <service-name>"
+    echo "Example: hyprrs waybar"
+    exit 1
+fi
+
+service="$1"
+
+# Kill the service
+pkill "$service"
+
+# Wait a short moment for it to die
+sleep 0.1
+
+# Restart with hyprctl
+hyprctl dispatch exec "$service"
+
+echo "Reloaded: $service"

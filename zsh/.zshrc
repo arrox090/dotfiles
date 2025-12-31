@@ -84,6 +84,8 @@ compdef _tmuxifier_compat tmuxifier
 alias vz='nvim ~/.zshrc'
 alias sz='source ~/.zshrc && echo ~/.zshrc sourced'
 
+alias svim='sudo -E nvim'
+
 alias nvdir='cd ~/.config/nvim'
 if [[ "$os" == "Darwin" ]]; then
   alias pydir='function _pydir(){ cd ~/Documents/programming/python/"$1"; }; _pydir'

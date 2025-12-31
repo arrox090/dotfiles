@@ -1,0 +1,4 @@
+#!/bin/bash
+windows_entry=$(sudo awk -F"'" '/menuentry / && /Windows Boot Manager/ {print i; exit} /menuentry / {i++}' /boot/grub/grub.cfg)
+sudo grub-reboot "$windows_entry"
+sudo reboot
