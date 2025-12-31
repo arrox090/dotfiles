@@ -67,19 +67,19 @@ Config(
       ctrl: true
     ),
     Keybind(
+      key: "p",
+      action: Up, 
+      ctrl: true
+    ),
+    Keybind(
+      key: "n",
+      action: Down, 
+      ctrl: true
+    ),
+    Keybind(
       key: "h",
       action: Close, 
       ctrl: true
-    ),
-    // Keybind(
-      // key: "p",
-      // action: Up, 
-      // ctrl: true
-    // ),
-    // Keybind(
-      // key: "n",
-      // action: Down, 
-      // ctrl: true
-    // )
+    )
   ],
 )

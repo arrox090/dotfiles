@@ -1,4 +1,22 @@
 #!/bin/bash
+
+# Find Windows boot entry number in GRUB
 windows_entry=$(sudo awk -F"'" '/menuentry / && /Windows Boot Manager/ {print i; exit} /menuentry / {i++}' /boot/grub/grub.cfg)
+
+if [ -z "$windows_entry" ]; then
+  echo "Error: Can't find windows entry in GRUB"
+  exit 1
+fi
+
+echo "Found windows entry nr. $windows_entry"
+
+# set next boot to windows
 sudo grub-reboot "$windows_entry"
+
+echo "Rebooting now"
+
+# wait a tiny bit
+sleep 0.2
+
+# Reboot
 sudo reboot
