@@ -1,0 +1,15 @@
+#!/bin/bash
+(
+  while IFS= read -r line; do
+    case "$line" in
+      SETDESC*)
+        # Change description to nothing for cleaner look
+        # echo "SETDESC 🔒 Unlock your password vault"
+        ;;
+      *)
+        # Pass through other commands
+        echo "$line"
+        ;;
+    esac
+  done
+) | /usr/bin/pinentry-rofi "$@" -- -kb-accept-entry "Return"

@@ -171,8 +171,8 @@ child:hover .item-subtext {
 
 /* === Keybinds Container === */
 .keybinds {
-  margin-top: 8px;
-  /* padding: 8px 0; */
+  /* margin-top: 8px; */
+  padding: 8px 0;
   border-top: 1px solid alpha(@surface0, 0.5);
 }
 
@@ -183,19 +183,19 @@ child:hover .item-subtext {
 
 /* === Individual Keybind Hints === */
 .keybind {
-  /* background: @surface0; */
+  background: @surface0;
   border-radius: 8px;
   padding: 6px 12px;
   border: 1px solid @surface1;
   transition: all 150ms ease;
 }
 
-/* .keybind:hover { */
-/*   background: @surface1; */
-/*   border-color: @mauve; */
-/*   transform: translateY(-1px); */
-/*   box-shadow: 0 2px 6px alpha(@mauve, 0.2); */
-/* } */
+.keybind:hover {
+  background: @surface1;
+  border-color: @mauve;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px alpha(@mauve, 0.2);
+}
 
 .keybind-bind {
   background: @crust;

@@ -14,17 +14,19 @@ local function run_file()
 	-- Get language
 	local language_command
 	if file_extension == "python" then
-		language_command = "python3"
+		language_command = "python3 "
 	elseif file_extension == "java" then
-		language_command = "runjava"
+		language_command = "runjava "
 	elseif file_extension == "lua" then
-		language_command = "lua"
+		language_command = "lua "
 	elseif file_extension == "c" then
-		language_command = "runc"
+		language_command = "runc "
 	elseif file_extension == "cpp" then
-		language_command = "runcpp"
+		language_command = "runcpp "
 	elseif file_extension == "html" then
-		language_command = "open"
+		language_command = "open "
+	elseif file_extension == "sh" then
+		language_command = "./"
 	end
 	-- print(language_command)
 	-- print(file_extension)
@@ -33,7 +35,7 @@ local function run_file()
 	vim.cmd("wa | vsp | term")
 
 	-- Enter command to the terminal
-	vim.api.nvim_feedkeys(("i%s %s"):format(language_command, current_file), "t", true)
+	vim.api.nvim_feedkeys(("i%s%s"):format(language_command, current_file), "t", true)
 end
 
 local function run_file_sudo()
@@ -48,16 +50,18 @@ local function run_file_sudo()
 
 	-- Get language
 	local language_command
-	if file_extension == "python" then
-		language_command = "python3"
+	if file_extension == "python " then
+		language_command = "python3 "
 	elseif file_extension == "java" then
-		language_command = "runjava"
+		language_command = "runjava "
 	elseif file_extension == "lua" then
-		language_command = "lua"
+		language_command = "lua "
 	elseif file_extension == "c" then
-		language_command = "runc"
+		language_command = "runc "
 	elseif file_extension == "html" then
-		language_command = "open"
+		language_command = "open "
+	elseif file_extension == "sh" then
+		language_command = "./"
 	end
 	-- print(language_command)
 	-- print(file_extension)
@@ -66,7 +70,7 @@ local function run_file_sudo()
 	vim.cmd("wa | vsp | term")
 
 	-- Enter command to the terminal
-	vim.api.nvim_feedkeys(("isudo %s %s"):format(language_command, current_file), "t", true)
+	vim.api.nvim_feedkeys(("isudo %s%s"):format(language_command, current_file), "t", true)
 end
 
 keymap("n", "<leader>rf", run_file, { silent = true, desc = "Compile and run current buffer(file)" })

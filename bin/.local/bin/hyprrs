@@ -9,15 +9,16 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-service="$1"
+service_name="$1"
+full_run_command="$@"
 
 # Kill the service
-pkill "$service"
+pkill "$service_name"
 
 # Wait a short moment for it to die
 sleep 0.1
 
 # Restart with hyprctl
-hyprctl dispatch exec "$service"
+hyprctl dispatch exec "$full_run_command"
 
-echo "Reloaded: $service"
+echo "Reloaded: $service_name"

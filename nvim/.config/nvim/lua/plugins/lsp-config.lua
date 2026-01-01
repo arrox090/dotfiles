@@ -56,7 +56,7 @@ return {
 
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Open code actions" })
-			vim.keymap.set("n", "rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
 		end,
 	},
 }

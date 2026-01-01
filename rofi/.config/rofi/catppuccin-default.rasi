@@ -17,7 +17,7 @@ window {
 
 mainbox {
     background-color: transparent;
-    spacing: 20px;
+    spacing: 0px;
 }
 
 inputbar {
@@ -47,7 +47,7 @@ listview {
     background-color: transparent;
     spacing: 8px;
     lines: 10;
-    padding: 10px 0px;
+    padding: 20px 5px 0px 5px;
 }
 
 element {
