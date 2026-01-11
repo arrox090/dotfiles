@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ~/notes
+note=$(fd . -e md | walker --dmenu)
+
+if [[ -n "$note" ]]; then
+  obsidian-cli open "$note"
+fi

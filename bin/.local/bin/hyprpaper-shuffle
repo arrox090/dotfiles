@@ -18,38 +18,39 @@ if [ ${#monitors[@]} -eq 0 ]; then
     exit 1
 fi
 
+# CURRENTLY NOT SUPPORED AFTER UPDATE TO VERSION 0.80
 # Get currently loaded wallpapers (full paths - no basename needed!)
-current_walls=()
-while IFS= read -r line; do
-    [[ -n "$line" ]] && current_walls+=("$line")
-done <<< "$(hyprctl hyprpaper listloaded)"
+# current_walls=()
+# while IFS= read -r line; do
+#     [[ -n "$line" ]] && current_walls+=("$line")
+# done <<< "$(hyprctl hyprpaper listloaded)"
+#
+# # Filter out currently loaded wallpapers (compare full paths)
+# available_wallpapers=()
+# for wallpaper in "${all_wallpapers[@]}"; do
+#     is_loaded=false
+#     for current in "${current_walls[@]}"; do
+#         if [[ "$wallpaper" == "$current" ]]; then
+#             is_loaded=true
+#             break
+#         fi
+#     done
+#     $is_loaded || available_wallpapers+=("$wallpaper")
+# done
+#
+# # Shuffle both pools
+# shuffled_available=($(shuf -e "${available_wallpapers[@]}"))
+# shuffled_current=($(shuf -e "${current_walls[@]}"))
+#
+# # Build final pool: prefer new wallpapers, fallback to old ones if needed
+# wallpapers_pool=("${shuffled_available[@]}")
+# if [ ${#monitors[@]} -gt ${#shuffled_available[@]} ]; then
+#     # Need more wallpapers - add from currently loaded ones
+#     wallpapers_pool+=("${shuffled_current[@]}")
+# fi
 
-# Filter out currently loaded wallpapers (compare full paths)
-available_wallpapers=()
-for wallpaper in "${all_wallpapers[@]}"; do
-    is_loaded=false
-    for current in "${current_walls[@]}"; do
-        if [[ "$wallpaper" == "$current" ]]; then
-            is_loaded=true
-            break
-        fi
-    done
-    $is_loaded || available_wallpapers+=("$wallpaper")
-done
 
-# Shuffle both pools
-shuffled_available=($(shuf -e "${available_wallpapers[@]}"))
-shuffled_current=($(shuf -e "${current_walls[@]}"))
-
-# Build final pool: prefer new wallpapers, fallback to old ones if needed
-wallpapers_pool=("${shuffled_available[@]}")
-if [ ${#monitors[@]} -gt ${#shuffled_available[@]} ]; then
-    # Need more wallpapers - add from currently loaded ones
-    wallpapers_pool+=("${shuffled_current[@]}")
-fi
-
-# Unload old wallpapers to save memory
-hyprctl hyprpaper unload all > /dev/null
+wallpapers_pool=($(shuf -e "${all_wallpapers[@]}"))
 
 # Assign a different wallpaper to each monitor
 for i in "${!monitors[@]}"; do
@@ -59,8 +60,7 @@ for i in "${!monitors[@]}"; do
     # If we run out, restart from shuffled array
     wallpaper="${wallpapers_pool[$i % ${#wallpapers_pool[@]}]}"
     
-    # Preload and set wallpaper
-    hyprctl hyprpaper preload "$wallpaper" > /dev/null
+    # Set wallpaper
     hyprctl hyprpaper wallpaper "$monitor,$wallpaper" > /dev/null
     
     echo "  $monitor: $(basename "$wallpaper")"

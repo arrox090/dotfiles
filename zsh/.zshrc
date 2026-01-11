@@ -153,6 +153,9 @@ add-zsh-hook precmd bind_keys_after_everything
 ###################################
 setopt CORRECT
 
+# Make auto complete case insensitive
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
 ###################################
 # COPY TOOL FOR COPYING WHEN IN SSH (osc52)
 ###################################

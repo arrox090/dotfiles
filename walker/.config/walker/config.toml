@@ -100,6 +100,10 @@ provider = "clipboard"
 prefix = "$"
 provider = "windows"
 
+[[providers.prefixes]]
+prefix = "^"
+provider = "obsidiannotes"
+
 [providers.clipboard]
 time_format = "%d.%m. - %H:%M" # format for the clipboard item date
 
@@ -110,6 +114,23 @@ fallback = [
   { action = "menus:parent", label = "back", bind = "Escape", after = "Nothing" },
   { action = "erase_history", label = "clear hist", bind = "ctrl h", after = "AsyncReload" },
 ]
+
+"obsidiannotes" = [
+  { action = "open", default = true, label = "open", after = "Close" },
+  { action = "delete", label = "delete", bind = 'ctrl d', after = "ClearReload" },
+  { action = "restore", label = "restore", bind = 'ctrl r', after = "ClearReload" },
+  { action = "create", default = true, label = "create", after = "Close" },
+  { action = "rename", label = "rename", bind = 'ctrl m', after = "ClearReload" },
+  { action = "confirm_rename", default = true, label = "Confirm", after = "ClearReload" },
+  { action = "cancel_rename", label = "Cancel", bind = "ctrl h", after = "Nothing" },
+]
+# "menus:obsidiannotes" = [
+#   { action = "open", default = true, label = "open", after = "Close" },
+#   { action = "delete", label = "delete", bind = 'ctrl d', after = "ClearReload" },
+#   { action = "restore", label = "restore", bind = 'ctrl r', after = "ClearReload" },
+#   { action = "create", default = true, label = "create", after = "Close" },
+#   # { action = "create", label = "create", bind = "Return", after = "Close" },
+# ]
 
 dmenu = [{ action = "select", default = true, bind = "Return" }]
 

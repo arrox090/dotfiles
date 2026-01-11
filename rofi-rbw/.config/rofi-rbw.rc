@@ -1,4 +1,4 @@
-typer=ydotool
+typer=wtype
 
 keybindings=Return:type:password,Tab:type:username,Control+l:type:menu
 menu-keybindings=Return:type
