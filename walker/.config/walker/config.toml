@@ -29,7 +29,7 @@ anchor_right = true
 "default" = { input = "Search", list = "" } # placeholders for input and empty list, key is the providers name, so f.e. "desktopapplications" or "menus:other"
 
 [keybinds]
-close = ["ctrl h"]
+close = ["Escape"]
 next = ["ctrl j"]
 previous = ["ctrl k"]
 left = ["Left"]
@@ -122,7 +122,7 @@ fallback = [
   { action = "create", default = true, label = "create", after = "Close" },
   { action = "rename", label = "rename", bind = 'ctrl m', after = "ClearReload" },
   { action = "confirm_rename", default = true, label = "Confirm", after = "ClearReload" },
-  { action = "cancel_rename", label = "Cancel", bind = "ctrl h", after = "Nothing" },
+  { action = "cancel_rename", label = "Cancel", bind = "Escape", after = "Nothing" },
 ]
 # "menus:obsidiannotes" = [
 #   { action = "open", default = true, label = "open", after = "Close" },

@@ -4,10 +4,11 @@ configuration {
   kb-element-next: "";
   kb-element-previous: "";
   kb-mode-complete: "";
+  kb-accept-alt: "";
   kb-remove-char-back: "BackSpace";
   kb-row-up: "Control+k,Control+p";
   kb-row-down: "Control+j,Control+n";
-  kb-cancel: "Control+h";
+  // kb-cancel: "Control+h";
 }
 
 @theme "catppuccin-default"

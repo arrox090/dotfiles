@@ -1,0 +1,16 @@
+# Take a look at the mako manpage with the command:
+#   man 5 mako
+# To view all configuration options.
+
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#cba6f7
+progress-color=over #313244
+
+font=JetBrainsMono Nerd Font 11
+format=<b>%a ⏵</b> %s\n%b
+default-timeout=5000
+sort=-time
+
+[urgency=high]
+border-color=#fab387
