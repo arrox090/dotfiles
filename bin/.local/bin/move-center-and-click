@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# 1. Get the focused monitor's data
+monitor=$(hyprctl monitors -j | jq '.[] | select(.focused == true)')
+
+# 2. Extract values
+#    'x' is ALREADY scaled (Logical position) - DO NOT TOUCH IT
+#    'width' is Raw/Physical - WE MUST SCALE IT
+current_scale=$(echo "$monitor" | jq '.scale')
+x=$(echo "$monitor" | jq '.x')
+y=$(echo "$monitor" | jq '.y')
+width=$(echo "$monitor" | jq '.width')
+height=$(echo "$monitor" | jq '.height')
+
+# 3. Calculate Logical Center
+#    Formula: Logical_X + (Physical_Width / Scale) / 2
+center_x=$(awk "BEGIN { print $x + ($width / $current_scale) / 2 }")
+center_y=$(awk "BEGIN { print $y + ($height / $current_scale) / 2 }")
+
+echo "Monitor Physical: ${width}x${height} (Scale: $current_scale)"
+echo "Monitor Logical Pos: $x,$y"
+echo "Calculated Target: $center_x, $center_y"
+
+# 4. Move
+hyprctl dispatch movecursor $center_x $center_y
+sleep 0.5
+ydotool click C0

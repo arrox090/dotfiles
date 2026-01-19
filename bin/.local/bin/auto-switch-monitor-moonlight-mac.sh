@@ -14,19 +14,19 @@ handle() {
   # $1 comes in as "focusedmon>>MonitorName,WorkspaceId"
   # We strip the "focusedmon>>" part
   event=${1:12}
-  
+
   # Split into Monitor Name and Workspace ID
   monitor_name=$(echo $event | cut -d ',' -f 1)
-  
+
   # 122 key code - f1, 120 key code - f2
   if [[ "$monitor_name" == "DP-2" ]]; then
-      # You are on Monitor 1
-      # echo "Switched to Secondary Monitor (DP-2)"
-      ssh macjan "osascript -e 'tell application \"System Events\" to key code 122 using {control down, option down, shift down}'"
+    # You are on Monitor 1
+    # echo "Switched to Secondary Monitor (DP-2)"
+    ssh macjan "osascript -e 'tell application \"System Events\" to key code 122 using {control down, option down, shift down}'"
   elif [[ "$monitor_name" == "DP-3" ]]; then
-      # You are on Monitor 2
-      # echo "Switched to Primary Monitor (DP-3)"
-      ssh macjan "osascript -e 'tell application \"System Events\" to key code 120 using {control down, option down, shift down}'"
+    # You are on Monitor 2
+    # echo "Switched to Primary Monitor (DP-3)"
+    ssh macjan "osascript -e 'tell application \"System Events\" to key code 120 using {control down, option down, shift down}'"
   fi
 }
 

@@ -19,27 +19,24 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 			require("mason-lspconfig").setup({
-				ensure_installed = { "pyright", "lua_ls", "bashls", "clangd" },
+				ensure_installed = { "pyright", "bashls", "yamlls", "lua_ls", "marksman" },
+
+				handlers = {
+					function(server_name)
+						require("lspconfig")[server_name].setup({
+							capabilities = capabilities,
+						})
+					end,
+				},
 			})
 		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			local lspconfig = vim.lsp.config
-			lspconfig("pyright", {
-				capabilities = capabilities,
-			})
-			lspconfig("lua_ls", {
-				capabilities = capabilities,
-			})
-			lspconfig("bashls", {
-				capabilities = capabilities,
-			})
-
 			vim.diagnostic.config({
 				virtual_text = {
 					prefix = "●", -- You can choose your own prefix or symbol

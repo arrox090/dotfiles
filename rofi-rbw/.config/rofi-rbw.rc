@@ -1,5 +1,5 @@
 typer=wtype
 
-keybindings=Return:type:password,Tab:type:username,Control+l:type:menu
+keybindings=Return:type:password,Tab:type:username,Control+l:type:menu,Shift+Return:type:username:tab:password
 menu-keybindings=Return:type
 no-help=True

@@ -36,6 +36,7 @@ background-opacity = 0.95
 
 # So I can go to next line in claude code
 keybind = shift+enter=text:\x1b\r
+keybind = control+enter=text:
 
 # window-padding-x = 2
 #
