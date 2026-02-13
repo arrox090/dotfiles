@@ -48,6 +48,7 @@ zinit light jeffreytse/zsh-vi-mode
 
 if [[ "$os" == "Linux" ]]; then
   export PATH="$HOME/.local/bin:$PATH"
+  export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 ###################################
