@@ -1,8 +1,8 @@
 return {
-  'windwp/nvim-autopairs',
-  event = "InsertEnter",
-  dependencies = {
-    "hrsh7th/nvim-cmp",
+	"windwp/nvim-autopairs",
+	event = "InsertEnter",
+	dependencies = {
+		"hrsh7th/nvim-cmp",
 	},
 	config = function()
 		-- import nvim-autopairs
@@ -16,6 +16,13 @@ return {
 				javascript = { "template_string" }, -- don't add pairs in javscript template_string treesitter nodes
 				java = false, -- don't check treesitter on java
 			},
+		})
+
+		local Rule = require("nvim-autopairs.rule")
+
+		autopairs.add_rules({
+			Rule("{%", "  %", { "htmldjango" }):set_end_pair_length(2),
+			Rule("{{", "  }", { "htmldjango" }):set_end_pair_length(2),
 		})
 
 		-- import nvim-autopairs completion functionality

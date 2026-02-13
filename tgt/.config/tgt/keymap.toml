@@ -1,0 +1,71 @@
+# The core_window key bindings are usable in any app component.
+[core_window]
+keymap = [
+  # --- VIM MODES ---
+  # 'i' to Enter Insert Mode (Focus Prompt)
+  { keys = ["i"], command = "focus_prompt", description = "Enter Insert Mode (Focus prompt)"},
+  # 'Esc' to Return to Normal Mode (Unfocus)
+  { keys = ["esc"], command = "unfocus_component", description = "Unfocus component (Normal Mode)"},
+
+  # --- VIM PANE SWITCHING ---
+  # Ctrl+h to go left (Focus Chat List)
+  { keys = ["left"], command = "focus_chat_list", description = "Focus the chat list"},
+  # Ctrl+l to go right (Focus Chat)
+  { keys = ["right"], command = "focus_chat", description = "Focus the chat"},
+  
+  # --- APP CONTROL ---
+  { keys = ["q"], command = "try_quit", description = "Quit the application"},
+  { keys = ["ctrl+c"], command = "try_quit", description = "Quit the application"},
+
+  # --- UI SIZING (Optional, kept from original) ---
+  { keys = ["alt+n"], command = "toggle_chat_list", description = "Toggle chat_list visibility"},
+  { keys = ["alt+l"], command = "increase_chat_list_size", description = "Increase chat list size"},
+  { keys = ["alt+h"], command = "decrease_chat_list_size", description = "Decrease chat list size"},
+]
+
+# The chat_list key bindings are only usable in the chat list component.
+[chat_list]
+keymap = [
+  # --- VIM NAVIGATION ---
+  # j/k to move down/up
+  { keys = ["j"], command = "chat_list_next", description = "Select the next chat"},
+  { keys = ["k"], command = "chat_list_previous", description = "Select the previous chat"},
+  
+  # l to open chat (Go Right)
+  { keys = ["l"], command = "chat_list_open", description = "Open the selected chat"},
+  { keys = ["enter"], command = "chat_list_open", description = "Open the selected chat"},
+
+  # h to unselect (Go Left/Back)
+  { keys = ["h"], command = "chat_list_unselect", description = "Unselect the current chat"},
+]
+
+# The chat key bindings are only usable in the chat component.
+[chat]
+keymap = [
+  # --- VIM NAVIGATION ---
+  # j/k to scroll messages
+  { keys = ["j"], command = "chat_window_next", description = "Select the next message"},
+  { keys = ["k"], command = "chat_window_previous", description = "Select the previous message"},
+
+  # h to Unselect message
+  { keys = ["h"], command = "chat_window_unselect", description = "Unselect the current message"},
+
+  # --- ACTIONS ---
+  { keys = ["r"], command = "chat_window_reply", description = "Reply to the selected message"},
+  { keys = ["y"], command = "chat_window_copy", description = "Copy the selected message"},
+  { keys = ["e"], command = "chat_window_edit", description = "Edit the selected message"},
+  
+  # Delete Actions
+  { keys = ["d"], command = "chat_window_delete_for_me", description = "Delete message for me"},
+  { keys = ["D"], command = "chat_window_delete_for_everyone", description = "Delete message for everyone"},
+]
+
+# The prompt key bindings are only usable in the prompt component.
+[prompt]
+keymap = [
+  # Send the message with Enter
+  # { keys = ["enter"], command = "sm", description = "Send the message"},
+  
+  # Exit Insert Mode (Unfocus prompt)
+  { keys = ["esc"], command = "unfocus_component", description = "Unfocus the prompt (Normal Mode)"},
+]
