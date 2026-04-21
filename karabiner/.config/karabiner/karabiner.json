@@ -46,13 +46,32 @@ WHEN ADDING NEW RULE REMEMBER TO EXCLUDE MOONLIGHT FROM IT!!!
               }
             ]
           },
-          // Caps Lock to Control
+          // Caps Lock to Escape on tap and Control on hold
           {
-            "description": "Caps Lock to Control",
+            "description": "Caps Lock to Escape on tap and Control on hold",
             "manipulators": [
               {
                 "from": { "key_code": "caps_lock", "modifiers": { "optional": ["any"] } },
                 "to": [{ "key_code": "left_control" }],
+                "to_if_alone": [{ "key_code": "escape" }],
+                "type": "basic"
+              }
+            ]
+          },
+          // USEFUL CONTROL + SOMETHING GLOBAL SHORTCUTS
+          {
+            "description": "Map ctrl+something to other keys",
+            "manipulators": [
+              // ctrl + ? for backspace
+              {
+                "from": { "key_code": "period", "modifiers": { "mandatory": ["control"] } },
+                "to": [{ "key_code": "delete_or_backspace" }],
+                "type": "basic"
+              },
+              // ctrl + m for enter
+              {
+                "from": { "key_code": "m", "modifiers": { "mandatory": ["control"] } },
+                "to": [{ "key_code": "return_or_enter" }],
                 "type": "basic"
               }
             ]
@@ -506,6 +525,22 @@ WHEN ADDING NEW RULE REMEMBER TO EXCLUDE MOONLIGHT FROM IT!!!
                   { "type": "variable_if", "name": "physical_right_cmd_held", "value": 0 },
                   { "type": "frontmost_application_unless", "bundle_identifiers": ["com.mitchellh.ghostty", "com.moonlight-stream.Moonlight"] }
                 ]
+              },
+              // Open settings (ctrl + ,)
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "comma",
+                  "modifiers": { "mandatory": ["control"] }
+                },
+                "to": [{
+                  "key_code": "comma",
+                  "modifiers": ["command"]
+                }],
+                "conditions": [
+                  { "type": "variable_if", "name": "physical_left_cmd_held", "value": 0 },
+                  { "type": "variable_if", "name": "physical_right_cmd_held", "value": 0 }
+                ]
               }
             ]
           },
@@ -535,8 +570,11 @@ WHEN ADDING NEW RULE REMEMBER TO EXCLUDE MOONLIGHT FROM IT!!!
               // Open apps
               { "type": "basic", "from": { "key_code": "return_or_enter", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "return_or_enter", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
               { "type": "basic", "from": { "key_code": "return_or_enter", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "return_or_enter", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
-              { "type": "basic", "from": { "key_code": "b", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "b", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
-              { "type": "basic", "from": { "key_code": "b", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "b", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
+              { "type": "basic", "from": { "key_code": "b", "modifiers": { "mandatory": ["control"], "optional": ["shift"] } }, "to": [{ "key_code": "b", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
+              { "type": "basic", "from": { "key_code": "b", "modifiers": { "mandatory": ["control"], "optional": ["shift"]  } }, "to": [{ "key_code": "b", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
+              // Open browser tabs
+              { "type": "basic", "from": { "key_code": "g", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "g", "modifiers": ["command", "option"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
+              { "type": "basic", "from": { "key_code": "g", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "g", "modifiers": ["command", "option"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
               // Splits navigation
               { "type": "basic", "from": { "key_code": "h", "modifiers": { "mandatory": ["control"], "optional": ["shift"] } }, "to": [{ "key_code": "h", "modifiers": ["command", "option"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
               { "type": "basic", "from": { "key_code": "h", "modifiers": { "mandatory": ["control"], "optional": ["shift"] } }, "to": [{ "key_code": "h", "modifiers": ["command", "option"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
@@ -548,9 +586,16 @@ WHEN ADDING NEW RULE REMEMBER TO EXCLUDE MOONLIGHT FROM IT!!!
               { "type": "basic", "from": { "key_code": "l", "modifiers": { "mandatory": ["control"], "optional": ["shift"] } }, "to": [{ "key_code": "l", "modifiers": ["command", "option"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
               // 'Walker' stuff (raycast/alfred on mac)
               { "type": "basic", "from": { "key_code": "spacebar", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "spacebar", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
-              { "type": "basic", "from": { "key_code": "spacebar", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "spacebar", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
-              { "type": "basic", "from": { "key_code": "p", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "p", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] },
-              { "type": "basic", "from": { "key_code": "p", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "p", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] }
+              { "type": "basic", "from": { "key_code": "spacebar", "modifiers": { "mandatory": ["control"] } }, "to": [{ "key_code": "spacebar", "modifiers": ["command"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }] }
+            ]
+          },
+          // SOME REBINDS FOR WINDOWS
+          {
+            "description": "Command as windows key for some shortcuts",
+            "manipulators": [
+              // Workspaces manipulation
+              { "type": "basic", "from": { "key_code": "s", "modifiers": { "mandatory": ["control", "shift"] } }, "to": [{ "key_code": "s", "modifiers": ["command", "shift"] }], "conditions": [{ "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 }, { "type": "frontmost_application_if", "bundle_identifiers": ["com.microsoft.rdc.macos"] }] },
+              { "type": "basic", "from": { "key_code": "s", "modifiers": { "mandatory": ["control", "shift"] } }, "to": [{ "key_code": "s", "modifiers": ["command", "shift"] }], "conditions": [{ "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 }, { "type": "frontmost_application_if", "bundle_identifiers": ["com.microsoft.rdc.macos"] }] }
             ]
           },
           // OPTION + HJKL FOR ARROWS
@@ -740,6 +785,19 @@ WHEN ADDING NEW RULE REMEMBER TO EXCLUDE MOONLIGHT FROM IT!!!
                 "to": [{ "shell_command": "~/.local/bin/raycast-rbw" }],
                 "type": "basic",
                 "conditions": [
+                  { "type": "variable_if", "name": "physical_left_cmd_held", "value": 1 },
+                  { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }
+                ]
+              },
+              {
+                "from": {
+                  "key_code": "p",
+                  "modifiers": { "mandatory": ["command"] }
+                },
+                "to": [{ "shell_command": "~/.local/bin/raycast-rbw" }],
+                "type": "basic",
+                "conditions": [
+                  { "type": "variable_if", "name": "physical_right_cmd_held", "value": 1 },
                   { "type": "frontmost_application_unless", "bundle_identifiers": ["com.moonlight-stream.Moonlight"] }
                 ]
               }
@@ -767,53 +825,14 @@ WHEN ADDING NEW RULE REMEMBER TO EXCLUDE MOONLIGHT FROM IT!!!
       "devices": [
         {
           "identifiers": {
+            "is_game_pad": true,
             "is_keyboard": true,
-            "product_id": 20071,
-            "vendor_id": 1121
+            "is_pointing_device": true,
+            "product_id": 2864,
+            "vendor_id": 13364
           },
-          "simple_modifications": [
-            {
-              "from": { "key_code": "left_command" },
-              "to": [{ "key_code": "left_option" }]
-            },
-            {
-              "from": { "key_code": "left_option" },
-              "to": [{ "key_code": "left_command" }]
-            },
-            {
-              "from": { "key_code": "right_command" },
-              "to": [{ "key_code": "right_option" }]
-            },
-            {
-              "from": { "key_code": "right_option" },
-              "to": [{ "key_code": "right_command" }]
-            }
-          ]
-        },
-        {
-          "identifiers": {
-            "is_keyboard": true,
-            "product_id": 5648,
-            "vendor_id": 4152
-          },
-          "simple_modifications": [
-            {
-              "from": { "key_code": "left_command" },
-              "to": [{ "key_code": "left_option" }]
-            },
-            {
-              "from": { "key_code": "left_option" },
-              "to": [{ "key_code": "left_command" }]
-            },
-            {
-              "from": { "key_code": "right_command" },
-              "to": [{ "key_code": "right_option" }]
-            },
-            {
-              "from": { "key_code": "right_option" },
-              "to": [{ "key_code": "right_command" }]
-            }
-          ]
+          "ignore": false,
+          "ignore_vendor_events": true
         }
       ],
       "name": "Hyprland Like (Must be using aerospace!)",
