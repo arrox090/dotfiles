@@ -3,7 +3,10 @@
 
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = [
+    # Starts JankyBorders with a blue active border and a dark gray inactive border
+    'exec-and-forget borders active_color=0xff007BFF inactive_color=0xff494d64 width=5.0'
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -90,8 +93,13 @@ automatically-unhide-macos-hidden-apps = true
     #     activate
     # end tell'
     # '''
+
     cmd-enter = 'exec-and-forget open -na "Ghostty"'
-    cmd-b = 'exec-and-forget open -na "Brave Browser"'
+    cmd-b = 'exec-and-forget open -na "Helium"'
+    cmd-shift-b = 'exec-and-forget open -na "Helium" --args --incognito'
+
+    cmd-alt-g = 'exec-and-forget open -a "Helium" "https://github.com/arrox090?tab=repositories"'
+
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     # cmd-slash = 'layout tiles horizontal vertical'
@@ -137,14 +145,14 @@ automatically-unhide-macos-hidden-apps = true
 
     [workspace-to-monitor-force-assignment]
     1 = 'main'
-    2 = 'main'
-    3 = 'main'
+    2 = ['secondary', 'main']
+    3 = ['secondary', 'main']
     4 = 'main'
     5 = 'main'
-    6 = ['secondary', 'main']
-    7 = ['secondary', 'main']
-    8 = ['secondary', 'main']
-    9 = ['secondary', 'main']
+    6 = 'main'
+    7 = 'main'
+    8 = 'main'
+    9 = 'main'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     # alt-tab = 'workspace-back-and-forth'

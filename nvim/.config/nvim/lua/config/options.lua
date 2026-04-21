@@ -46,5 +46,13 @@ opt.splitbelow = true -- split horizontal window to the bottom
 -- Disable wrap
 opt.wrap = false
 
+-- When wrap on won't cut words in half, and lines will keep the same indentation
+opt.linebreak = true
+opt.breakindent = true
+
 -- Don't show mode
 vim.o.showmode = false
+
+-- tests
+-- opt.conceallevel = 2
+-- opt.concealcursor = "nc"

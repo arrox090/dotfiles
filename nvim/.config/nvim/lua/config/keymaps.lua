@@ -7,6 +7,9 @@ vim.g.mapleader = " "
 -- Clear search highlights
 keymap("n", "<leader>nh", ":nohlsearch<CR>", { desc = "Clear search highlights", noremap = true, silent = true })
 
+-- Toggle text wrapping
+keymap("n", "tw", "<cmd>set wrap!<CR>", { desc = "Toggle Text Wrapping" })
+
 -- delete single character withou copying into register
 keymap("n", "x", '"_x')
 
