@@ -1,4 +1,3 @@
--- return {}
 return {
 	"folke/noice.nvim",
 	event = "VeryLazy",

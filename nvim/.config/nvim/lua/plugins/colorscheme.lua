@@ -7,33 +7,18 @@ return {
 			transparent_background = true,
 			custom_highlights = function(colors)
 				return {
-					-- Headings
-					RenderMarkdownH1 = { fg = colors.mauve, bold = true },
-					RenderMarkdownH2 = { fg = colors.lavender, bold = true },
-					RenderMarkdownH3 = { fg = colors.sapphire, bold = true },
-					RenderMarkdownH4 = { fg = colors.teal, bold = true },
-					RenderMarkdownH5 = { fg = colors.sky, bold = true },
-					RenderMarkdownH6 = { fg = colors.blue, bold = true },
-					-- Heading backgrounds
-					RenderMarkdownH1Bg = { bg = colors.surface0 },
-					RenderMarkdownH2Bg = { bg = colors.surface0 },
-					RenderMarkdownH3Bg = { bg = colors.surface0 },
-					-- Tables
-					RenderMarkdownTableHead = { fg = colors.lavender, bold = true },
-					RenderMarkdownTableRow = { fg = colors.text },
-					-- Code
-					RenderMarkdownCode = { bg = colors.surface0 },
-					RenderMarkdownCodeInline = { fg = colors.teal, bg = colors.surface0 },
-					-- Bullets & checkboxes
-					RenderMarkdownBullet = { fg = colors.mauve },
-					RenderMarkdownChecked = { fg = colors.teal },
-					RenderMarkdownUnchecked = { fg = colors.overlay1 },
-					-- Quotes & links
-					RenderMarkdownQuote = { fg = colors.overlay2, italic = true },
-					RenderMarkdownLink = { fg = colors.blue },
-					-- Bold & italic (treesitter)
+					-- make it a little more distinct from parameter color
+					["@variable.builtin"] = { fg = "#e56460", italic = true },
+
+					-- change bold, italic and `` colors in markup
 					["@markup.strong.markdown_inline"] = { fg = colors.mauve, bold = true },
-					["@markup.italic.markdown_inline"] = { fg = colors.lavender, italic = true },
+					["@markup.italic.markdown_inline"] = { fg = colors.teal, italic = true },
+					["@markup.raw.markdown_inline"] = { fg = colors.sapphire, italic = true },
+
+					-- change table and dash colors for render markdown plugin
+					RenderMarkdownDash = { fg = colors.teal },
+					RenderMarkdownTableHead = { fg = colors.sapphire, bold = true },
+					RenderMarkdownTableRow = { fg = colors.teal, bold = true },
 				}
 			end,
 		})
