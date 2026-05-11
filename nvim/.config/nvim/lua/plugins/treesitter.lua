@@ -3,15 +3,16 @@ return {
 	lazy = false,
 	build = ":TSUpdate",
 	config = function()
-		local config = require("nvim-treesitter")
-		config.setup({
+		require("nvim-treesitter").setup({
 			ensure_installed = { "python", "lua", "markdown" },
 			auto_install = true,
-			highlight = {
-				enable = true,
-				-- additional_vim_regex_highlighting = false,
-			},
-			indent = { enable = true },
+		})
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "*",
+			callback = function(args)
+				pcall(vim.treesitter.start, args.buf)
+			end,
 		})
 	end,
 }
