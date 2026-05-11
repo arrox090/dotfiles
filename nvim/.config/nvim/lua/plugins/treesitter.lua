@@ -3,7 +3,7 @@ return {
 	lazy = false,
 	build = ":TSUpdate",
 	config = function()
-		local config = require("nvim-treesitter.configs")
+		local config = require("nvim-treesitter")
 		config.setup({
 			ensure_installed = { "python", "lua", "markdown" },
 			auto_install = true,
