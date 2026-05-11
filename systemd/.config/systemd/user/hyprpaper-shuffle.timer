@@ -2,7 +2,7 @@
 Description=Shuffle wallpapers every 30 minutes
 
 [Timer]
-OnBootSec=5sec
+OnBootSec=10sec
 OnUnitActiveSec=30min
 
 [Install]
