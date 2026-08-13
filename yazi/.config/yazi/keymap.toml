@@ -1,0 +1,75 @@
+[[mgr.prepend_keymap]]
+on = [ "c", "p" ]
+run = "shell -- soffice --headless --convert-to pdf %s"
+desc = "Convert selected DOCX to PDF"
+
+[[mgr.prepend_keymap]]
+on   = [ "c", "i" ]
+# run  = 'shell --confirm "img2pdf %s -o combined.pdf"'
+run  = 'shell --confirm "magick convert %s combined.pdf"'
+desc = "Convert selected images to PDF"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "t" ]
+run  = "cd ~/.Trash"
+desc = "Go to Trash"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "p" ]
+run  = "cd ~/Projects"
+desc = "Go to Projects"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "n" ]
+run  = "cd ~/notes"
+desc = "Go to notes"
+
+[[mgr.prepend_keymap]]
+on = [ "T" ]
+run = 'shell -- open "$1"'
+desc = "Open HTML in browser"
+
+[[mgr.prepend_keymap]]
+on = [ "e" ]
+run = 'shell -- unar "$1"'
+desc = "Extract archive (unar)"
+
+[[mgr.prepend_keymap]]
+on   = [ "C" ]
+run  = "plugin compress"
+desc = "Compress files with prompt"
+
+[[mgr.prepend_keymap]]
+on   = [ "M" ]
+run  = "plugin symlink"
+desc = "Show full symlink target"
+
+[[mgr.prepend_keymap]]
+on   = [ "R" ]
+run  = "plugin restore"
+desc = "Restore file from Trash"
+
+[[mgr.prepend_keymap]]
+on   = [ "<S-Enter>" ]
+run  = 'shell "sudo nvim \"$0\"" --block'
+desc = "Edit file with sudo nvim"
+
+[[mgr.prepend_keymap]]
+on   = [ "m", "c" ]
+run  = "linemode custom"
+desc = "Set linemode back to custom"
+
+[[mgr.prepend_keymap]]
+on   = [ "<C-d>" ]
+run  = "plugin sudo-rm"
+desc = "Delete file/s with sudo"
+
+[[mgr.prepend_keymap]]
+on   = [ "<C-x>" ]
+run  = "plugin diff"
+desc = "Show the difference between two files"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "l" ]
+run  = "plugin lazygit"
+desc = "Open Lazygit"

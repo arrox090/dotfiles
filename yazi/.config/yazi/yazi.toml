@@ -1,0 +1,60 @@
+[mgr]
+linemode = "custom"
+show_hidden = true
+
+[preview]
+max_width = 1000
+max_height = 1000
+
+
+[plugin]
+prepend_preloaders = [
+  { url = "*.docx", run = "office" },
+  { url = "*.xls",  run = "office" },
+  { url = "*.xlsx", run = "office" },
+  { mime = "application/openxmlformats-officedocument.*", run = "office" },
+  { mime = "application/msword", run = "office" },
+  { url = "*.stl", run = "f3d-preview" },
+  { url = "*.3mf", run = "openscad" },
+  { mime = "{video/*,audio/*,image/*}", run = "mediainfo" }
+]
+
+prepend_previewers = [
+  # 1. Put openssl FIRST so it catches certificates before the generic text rule does
+  { mime = "application/x-x509-ca-cert", run = "openssl" },
+  { url = "*.pem", run = "openssl" },
+  { url = "*.crt", run = "openssl" },
+  { url = "*.cer", run = "openssl" },
+
+  # 2. Office documents
+  { url = "*.docx", run = "office" },
+  { url = "*.xls",  run = "office" },
+  { url = "*.xlsx", run = "office" },
+  { mime = "application/openxmlformats-officedocument.*", run = "office" },
+  { mime = "application/msword", run = "office" },
+
+  # 3. Generic text fallback (this will now only trigger if it wasn't a .pem file)
+  { mime = "text/*", run = "piper -- bat --style=plain --color=always \"$1\"" },
+  
+  # 4. 3D models and media
+  { url = "*.stl", run = "f3d-preview" },
+  { url = "*.3mf", run = "openscad" },
+  { mime = "{video/*,audio/*,image/*}", run = "mediainfo" },
+]
+
+[opener]
+dmg_search = [
+    { run = 'app=$(basename "$1" .dmg | sed -E "s/[-_][0-9].*//" | tr "-" " "); open "https://www.google.com/search?q=${app}+app"', desc = "Search App on Web", orphan = true }
+]
+
+iso_search = [
+    { run = 'os=$(basename "$1" .iso | sed -E "s/[-_][0-9].*//" | tr "-" " "); open "https://www.google.com/search?q=${os}+operating+system"', desc = "Search OS on Web", orphan = true }
+]
+
+[[open.prepend_rules]]
+url = "*.dmg"
+use = "dmg_search"
+
+[[open.prepend_rules]]
+url = "*.iso"
+use = "iso_search"
