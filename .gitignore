@@ -1,3 +1,13 @@
 tmux/.tmux/plugins/
 ncspot/.config/ncspot/userstate.cbor
 nvim/.config/nvim/lazy-lock.json
+
+# Ignore everything inside the yazi plugins
+yazi/.config/yazi/plugins/*
+
+# except custom plugins
+!yazi/.config/yazi/plugins/compress.yazi/
+!yazi/.config/yazi/plugins/restore.yazi/
+!yazi/.config/yazi/plugins/sudo-rm.yazi/
+!yazi/.config/yazi/plugins/symlink.yazi/
+/yazi/.config/yazi/package.toml
