@@ -7,10 +7,27 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- Use // for comments in json
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "json",
+-- Auto-compile Karabiner config on save
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = { "*/karabiner*/*.jsonc", "*/karabiner*/base.json" },
 	callback = function()
-		vim.bo.commentstring = "// %s"
+		local file_dir = vim.fn.expand("<afile>:p:h")
+		local script = file_dir .. "/build.py"
+
+		-- If saved from inside 'rules/', check the parent directory
+		if not vim.uv.fs_stat(script) then
+			script = vim.fn.fnamemodify(file_dir, ":h") .. "/build.py"
+		end
+
+		-- Only run if build.py actually exists
+		if vim.uv.fs_stat(script) then
+			vim.system({ "python3", script }, { text = true }, function(obj)
+				if obj.code == 0 then
+					vim.notify("Karabiner config compiled!", vim.log.levels.INFO)
+				else
+					vim.notify("Karabiner compile failed:\n" .. (obj.stderr or obj.stdout or ""), vim.log.levels.ERROR)
+				end
+			end)
+		end
 	end,
 })
