@@ -52,8 +52,17 @@ return {
 			})
 
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Open code actions" })
+			vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show full diagnostic message" })
+			vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+				require("fzf-lua").lsp_code_actions({ silent = true })
+			end, { desc = "Open code actions" })
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+			vim.keymap.set(
+				"n",
+				"<leader>fd",
+				require("fzf-lua").diagnostics_document,
+				{ desc = "Document diagnostics" }
+			)
 		end,
 	},
 }
