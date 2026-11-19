@@ -66,6 +66,7 @@ automatically-unhide-macos-hidden-apps = true
 # 'main' binding mode must be always presented
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
+    alt-shift-t = 'exec-and-forget /bin/bash -c "aerospace move-mouse window-force-center && sleep 0.05 && /opt/homebrew/bin/cliclick c:."'
 
     # All possible keys:
     # - Letters.        a, b, c, ..., z
@@ -98,11 +99,12 @@ automatically-unhide-macos-hidden-apps = true
     cmd-b = 'exec-and-forget open -na "Helium"'
     cmd-shift-b = 'exec-and-forget open -na "Helium" --args --incognito'
 
+    # Its actually cmd-g (see karabiner)
     cmd-alt-g = 'exec-and-forget open -a "Helium" "https://github.com/arrox090?tab=repositories"'
 
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-    # cmd-slash = 'layout tiles horizontal vertical'
+    ctrl-alt-shift-comma = 'layout tiles horizontal vertical'
     # cmd-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
