@@ -34,8 +34,15 @@ local function run_file()
 	-- Execute : commands
 	vim.cmd("wa | vsp | term")
 
+	local cmd
+	if file_extension == "cs" then
+		cmd = "dotnet run"
+	else
+		cmd = language_command .. current_file
+	end
+
 	-- Enter command to the terminal
-	vim.api.nvim_feedkeys(("i%s%s"):format(language_command, current_file), "t", true)
+	vim.api.nvim_feedkeys(("i%s"):format(cmd), "t", true)
 end
 
 local function run_file_sudo()
@@ -80,12 +87,3 @@ keymap(
 	run_file_sudo,
 	{ silent = true, desc = "Compile and run current buffer(file) with administrator permissions" }
 )
-
--- Global Auto-Format on Save
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		-- The 'bufnr' ensures it only formats the file you are actively saving
-		vim.lsp.buf.format({ async = false, bufnr = args.buf })
-	end,
-})
