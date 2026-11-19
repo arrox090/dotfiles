@@ -3,7 +3,12 @@ return {
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",
-		opts = {},
+		opts = {
+			library = {
+				-- Automatically load Yazi types when 'ya' or 'cx' is used in any Lua file:
+				{ path = vim.fn.expand("~/.config/yazi/plugins/types.yazi"), words = { "ya", "cx" } },
+			},
+		},
 	},
 	{
 		"mason-org/mason.nvim",
