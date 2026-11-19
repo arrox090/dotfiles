@@ -1,11 +1,14 @@
 [mgr]
 linemode = "custom"
-show_hidden = true
+# show_hidden = true
 
 [preview]
 max_width = 1000
 max_height = 1000
 
+[tasks]
+image_alloc = 0
+image_bound = [0, 0]
 
 [plugin]
 prepend_preloaders = [
