@@ -43,13 +43,11 @@ zinit light Aloxaf/fzf-tab
 zinit light jeffreytse/zsh-vi-mode
 
 ###################################
-# MY OWN SCRIPTS/TOOLS
+# MY OWN SCRIPTS/TOOLS/ MANUAL BUILDS
 ###################################
-
-if [[ "$os" == "Linux" ]]; then
-  export PATH="$HOME/.local/bin:$PATH"
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 ###################################
 # ENV
@@ -57,7 +55,7 @@ fi
 export EDITOR='nvim'
 export SUDO_EDITOR="$EDITOR"
 export ZVM_VI_EDITOR="$EDITOR"
-export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+# export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 # export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
 export BAT_THEME="Catppuccin Mocha"
@@ -87,11 +85,42 @@ alias sz='source ~/.zshrc && echo ~/.zshrc sourced'
 
 alias svim='sudo -E nvim'
 
-alias nvdir='cd ~/.config/nvim'
 if [[ "$os" == "Darwin" ]]; then
-  alias pydir='function _pydir(){ cd ~/Documents/programming/python/"$1"; }; _pydir'
-else
-  alias pydir='function _pydir(){ cd ~/Projects/python/"$1"; }; _pydir'
+  export DOTNET_ROOT="$(brew --prefix dotnet)/libexec"
+
+  alias wattage="ioreg -r -n AppleSmartBattery | awk '/\"Amperage\" =/{a=\$3} /\"Voltage\" =/{v=\$3} END {print (a*v)/1000000 \" W\"}'"
+  alias lsend="localsend-cli send"
+
+  jhome() {
+    export JAVA_HOME=$(/usr/libexec/java_home -v "$1")
+    echo $(/usr/libexec/java_home -v "$1")
+  }
+
+  shareurl() {
+    if [[ -z "$1" ]]; then
+      echo "Usage: shareurl <URL> [filename]"
+      return 1
+    fi
+
+    local url="$1"
+    local name="${2:-Open Link}"
+    local file="${name}.webloc"
+
+    cat > "/tmp/$file" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>URL</key>
+  <string>${url}</string>
+</dict>
+</plist>
+EOF
+
+    echo "Created: /tmp/$file"
+  }
+
 fi
 
 alias runcpp='function _runcpp(){ g++ "$1" -o main && ./main; }; _runcpp'
@@ -203,3 +232,4 @@ alias nvim-nvchad='NVIM_APPNAME="nvim-nvchad" nvim'
 
 alias nvim-astro='NVIM_APPNAME="nvim-astronvim" nvim'
 # rm -rf ~/.config/nvim-astronvim ~/.local/share/nvim-astronvim ~/.cache/nvim-astronvim ~/.local/state/nvim-astronvim
+
