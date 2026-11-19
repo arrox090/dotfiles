@@ -1,4 +1,10 @@
 return {
+	-- Automatically configures lua_ls for Neovim (removes "Undefined global vim")
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {},
+	},
 	{
 		"mason-org/mason.nvim",
 		config = function()
@@ -22,7 +28,16 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "pyright", "bashls", "yamlls", "lua_ls", "marksman" },
+				ensure_installed = {
+					"lua_ls", -- Lua (Neovim configs)
+					"pyright", -- Python
+					"clangd", -- C / C++
+					"bashls", -- Bash
+					"marksman", -- Markdown (Notes & AI context)
+					"yamlls", -- YAML (Docker compose)
+					"biome", -- JSON / JSONC / JS / TS
+					"sqlls", -- SQL
+				},
 
 				handlers = {
 					function(server_name)
@@ -39,9 +54,9 @@ return {
 		config = function()
 			vim.diagnostic.config({
 				virtual_text = {
-					prefix = "●", -- You can choose your own prefix or symbol
+					prefix = "●",
 				},
-				signs = false, -- Always show diagnostic signs
+				signs = false, -- Don't show diagnostic signs
 				underline = true, -- Underline text with diagnostics
 				update_in_insert = false, -- Update diagnostics while typing
 				severity_sort = true, -- Sort diagnostics by severity
