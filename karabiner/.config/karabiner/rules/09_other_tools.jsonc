@@ -1,0 +1,94 @@
+[
+  // OTHER
+  {
+    "description": "Run raycast-rbw with command + p",
+    "enabled": true,
+    "manipulators": [
+      {
+        "from": {
+          "key_code": "p",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [{ "shell_command": "~/.local/bin/raycast-rbw" }],
+        "type": "basic",
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+      {
+        "from": {
+          "key_code": "p",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [{ "shell_command": "~/.local/bin/raycast-rbw" }],
+        "type": "basic",
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    "description": "Run python script which changes current telegram accounts",
+    "enabled": false,
+    "manipulators": [
+      {
+        "from": {
+          "key_code": "p",
+          "modifiers": { "mandatory": ["command", "option", "control"] },
+        },
+        "to": [
+          {
+            "shell_command": "python3 /Users/arrox/Documents/programming/ads_bot/scripts/next_account_batch.py",
+          },
+        ],
+        "type": "basic",
+        "conditions": [
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    "description": "F5 -> mic mute shortcut",
+    "manipulators": [
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "f5",
+        },
+        "to": [
+          {
+            "key_code": "m",
+            "modifiers": ["control", "option", "command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+    ],
+  },
+]

@@ -1,0 +1,49 @@
+{
+  "profiles": [
+    {
+      "complex_modifications": {
+        "parameters": {
+          "basic.simultaneous_threshold_milliseconds": 50,
+          "basic.to_delayed_action_delay_milliseconds": 500,
+          "basic.to_if_alone_timeout_milliseconds": 1000,
+          "basic.to_if_held_down_threshold_milliseconds": 500
+        },
+        "rules": []
+      },
+      "devices": [
+        {
+          "identifiers": {
+            "is_game_pad": true,
+            "is_keyboard": true,
+            "is_pointing_device": true,
+            "product_id": 2864,
+            "vendor_id": 13364
+          },
+          "ignore": false,
+          "ignore_vendor_events": true
+        }
+      ],
+      "fn_function_keys": [
+        {
+          "from": {
+            "key_code": "f5"
+          },
+          "to": [
+            {
+              "key_code": "f5"
+            }
+          ]
+        }
+      ],
+      "name": "Hyprland Like (Must be using aerospace!)",
+      "selected": true,
+      "simple_modifications": [],
+      "virtual_hid_keyboard": {
+        "keyboard_type_v2": "ansi"
+      }
+    },
+    {
+      "name": "blank"
+    }
+  ]
+}
