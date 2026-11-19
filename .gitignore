@@ -10,4 +10,5 @@ yazi/.config/yazi/plugins/*
 !yazi/.config/yazi/plugins/restore.yazi/
 !yazi/.config/yazi/plugins/sudo-rm.yazi/
 !yazi/.config/yazi/plugins/symlink.yazi/
+
 /yazi/.config/yazi/package.toml

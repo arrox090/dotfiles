@@ -20,8 +20,8 @@ keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
 
 -- exit insert mode
-keymap("i", "jk", "<ESC>")
-keymap("t", "jk", "<C-\\><C-n>", { silent = true })
+-- keymap("i", "jk", "<ESC>")
+-- keymap("t", "jk", "<C-\\><C-n>", { silent = true })
 
 -- insert empty line below
 keymap("n", "<CR>", "o<ESC>")
