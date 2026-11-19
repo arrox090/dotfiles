@@ -44,4 +44,30 @@
       },
     ],
   },
+  {
+    "description": "Moonlight: Shift + Escape to release mouse capture (Ctrl+Alt+Shift+Z)",
+    "manipulators": [
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "escape",
+          "modifiers": {
+            "mandatory": ["shift"],
+          },
+        },
+        "to": [
+          {
+            "key_code": "z",
+            "modifiers": ["control", "option", "shift"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+    ],
+  },
 ]
