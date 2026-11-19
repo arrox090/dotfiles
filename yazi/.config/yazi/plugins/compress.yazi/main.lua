@@ -25,8 +25,9 @@ local get_compression_target = ya.sync(function()
 		end
 	else
 		default_name = tab.current.cwd.name
-		for _, url in pairs(tab.selected) do
-			table.insert(paths, tostring(url))
+		-- FIX: Use pairs() instead of ipairs() for Yazi's Rust-backed lists
+		for _, file in pairs(tab.selected) do
+			table.insert(paths, tostring(file.url))
 		end
 		-- The compression targets are aquired, now unselect them
 		ya.emit("escape", {})
@@ -35,7 +36,14 @@ local get_compression_target = ya.sync(function()
 end)
 
 local function invoke_compress_command(paths, name)
-	local cmd_output, err_code = Command("7zz"):arg("a"):arg(name):arg(paths):stderr(Command.PIPED):output()
+	local cmd = Command("7zz"):arg("a"):arg(name)
+
+	-- FIX: Add each path as a separate argument cleanly
+	for _, path in ipairs(paths) do
+		cmd = cmd:arg(path)
+	end
+
+	local cmd_output, err_code = cmd:stderr(Command.PIPED):output()
 
 	if err_code ~= nil then
 		ya.notify({

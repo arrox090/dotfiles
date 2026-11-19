@@ -1,3 +1,9 @@
+# %h - hovered
+# %s - all selected
+
+# [[mgr.delete_keymap]]
+# on = [ "s" ]
+
 [[mgr.prepend_keymap]]
 on = [ "c", "p" ]
 run = "shell -- soffice --headless --convert-to pdf %s"
@@ -20,24 +26,29 @@ run  = "cd ~/Projects"
 desc = "Go to Projects"
 
 [[mgr.prepend_keymap]]
-on   = [ "g", "n" ]
+on   = [ "g", "o" ]
 run  = "cd ~/notes"
-desc = "Go to notes"
+desc = "Go to obsidian notes"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "m" ]
+run  = "cd '~/Library/Application Support/PrismLauncher/instances'"
+desc = "Go to prism mc instances"
 
 [[mgr.prepend_keymap]]
 on = [ "T" ]
-run = 'shell -- open "$1"'
+run = 'shell -- open "%h"'
 desc = "Open HTML in browser"
 
 [[mgr.prepend_keymap]]
 on = [ "e" ]
-run = 'shell -- unar "$1"'
+run = 'shell -- unar "%h"'
 desc = "Extract archive (unar)"
 
 [[mgr.prepend_keymap]]
 on   = [ "C" ]
 run  = "plugin compress"
-desc = "Compress files with prompt"
+desc = "Compress (archive) files with prompt"
 
 [[mgr.prepend_keymap]]
 on   = [ "M" ]
@@ -51,7 +62,7 @@ desc = "Restore file from Trash"
 
 [[mgr.prepend_keymap]]
 on   = [ "<S-Enter>" ]
-run  = 'shell "sudo nvim \"$0\"" --block'
+run  = 'shell --block sudo nvim "%h"'
 desc = "Edit file with sudo nvim"
 
 [[mgr.prepend_keymap]]
@@ -73,3 +84,18 @@ desc = "Show the difference between two files"
 on   = [ "g", "l" ]
 run  = "plugin lazygit"
 desc = "Open Lazygit"
+
+[[mgr.prepend_keymap]]
+on   = [ "<C-5>" ]
+run = 'shell -- tmux split-window -h -c "$PWD"'
+desc = "Open tmux split"
+
+[[mgr.prepend_keymap]]
+on   = [ "<F1>" ]
+run = 'shell -- tmux split-window -v -c "$PWD"'
+desc = "Open tmux split"
+
+[[mgr.prepend_keymap]]
+on   = [ "s", "l" ]
+run  = 'shell --block --confirm "localsend-cli send %s"'
+desc = "Send selected files via localsend"
