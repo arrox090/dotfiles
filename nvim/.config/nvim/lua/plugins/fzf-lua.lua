@@ -20,14 +20,22 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>ff", FzfLua.files, { desc = "Telescope find files" })
-			vim.keymap.set("n", "<leader>fs", FzfLua.live_grep, { desc = "Telescope find string" })
+			vim.keymap.set("n", "<leader>ff", function()
+				FzfLua.files({ cwd = vim.fn.expand("%:p:h") })
+			end, { desc = "Fuzzy find files" })
+			vim.keymap.set("n", "<leader>fs", FzfLua.live_grep, { desc = "Fuzzy find string" })
+			vim.keymap.set(
+				"n",
+				"<leader>fg",
+				FzfLua.files,
+				{ desc = "Fuzzy find files from the dir neovim was started" }
+			)
 			vim.keymap.set("n", "<leader>fn", function()
 				FzfLua.files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "Telescope find files in nvim config directory" })
+			end, { desc = "Fuzzy find files in nvim config directory" })
 			vim.keymap.set("n", "<leader>fh", function()
 				FzfLua.files({ cwd = vim.fn.expand("~") })
-			end, { desc = "Telescope find files in home directory" })
+			end, { desc = "Fuzzy find files in home directory" })
 		end,
 	},
 }
