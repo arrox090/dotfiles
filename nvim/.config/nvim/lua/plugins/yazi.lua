@@ -9,12 +9,12 @@ return {
 		{
 			"<leader>ee",
 			"<cmd>Yazi<cr>",
-			desc = "Open file explorer",
+			desc = "Open yazi",
 		},
 		{
 			"<leader>eg",
 			"<cmd>Yazi cwd<cr>",
-			desc = "Open file explorer from the dir neovim was started",
+			desc = "Open yazi from the dir neovim was started",
 		},
 	},
 	opts = {
