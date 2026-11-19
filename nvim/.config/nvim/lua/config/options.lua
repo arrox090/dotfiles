@@ -56,3 +56,9 @@ vim.o.showmode = false
 -- tests
 -- opt.conceallevel = 2
 -- opt.concealcursor = "nc"
+
+-- fold fix for python
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldenable = false -- don't fold everything on open
+vim.opt.foldlevel = 99
