@@ -58,9 +58,13 @@ export EDITOR='nvim'
 export SUDO_EDITOR="$EDITOR"
 export ZVM_VI_EDITOR="$EDITOR"
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+export PAGER="nvimpager"
+export MANPAGER="$PAGER"
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 # export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
 export BAT_THEME="Catppuccin Mocha"
+# so himalaya does not show those warnings that do nothing
+export RUST_LOG=himalaya=off
 
 
 ###################################
