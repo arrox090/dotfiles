@@ -1,0 +1,42 @@
+[[plugin.deps]]
+use = "ruudjhuu/f3d-preview"
+rev = "76d115d"
+hash = "6b2008327d65fe374d99f6b6ff007cba"
+
+[[plugin.deps]]
+use = "macydnah/office"
+rev = "41ebef8"
+hash = "5805affd3ae8adcb3c72b6997d21c0a6"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:piper"
+rev = "bb758e2"
+hash = "e0d59bd47866a6a574c74574097e5070"
+
+[[plugin.deps]]
+use = "ettom/openscad"
+rev = "4397564"
+hash = "996ad1c3b9260026ecdb2d8e7d454c50"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "e079a00"
+hash = "8dd8bc3484547390ba50dfa58d7436b0"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "3f2b882"
+hash = "a2b67c52fc36d4c7d3ccb8940d9a140"
+
+[[plugin.deps]]
+use = "Lil-Dank/lazygit"
+rev = "e73fd74"
+hash = "6ea5f37c7f219671ec504cb8311f889d"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:types"
+rev = "1ef5fe0"
+hash = "d368d5a6a72657e1c0e7ee7340dcea8c"
+
+[flavor]
+deps = []
