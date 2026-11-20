@@ -31,3 +31,12 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 		end
 	end,
 })
+
+-- Close Vimux runner pane automatically when exiting Neovim
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	callback = function()
+		if vim.env.TMUX then
+			pcall(vim.fn.VimuxCloseRunner)
+		end
+	end,
+})

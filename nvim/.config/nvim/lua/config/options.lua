@@ -62,3 +62,6 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false -- don't fold everything on open
 vim.opt.foldlevel = 99
+
+-- make vimux use a tmux pane with 15 lines height
+vim.g.VimuxHeight = "15"
