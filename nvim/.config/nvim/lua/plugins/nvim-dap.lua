@@ -1,7 +1,10 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
-		dependencies = { "jay-babu/mason-nvim-dap.nvim" },
+		dependencies = {
+			"jay-babu/mason-nvim-dap.nvim",
+			"Weissle/persistent-breakpoints.nvim",
+		},
 		config = function()
 			local dap = require("dap")
 
@@ -9,6 +12,10 @@ return {
 				ensure_installed = { "debugpy" },
 				automatic_setup = true,
 				handlers = {},
+			})
+
+			require("persistent-breakpoints").setup({
+				load_breakpoints_event = { "BufReadPost" },
 			})
 
 			dap.configurations.python = {
@@ -75,14 +82,6 @@ return {
 			end
 
 			vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
-		end,
-	},
-	{
-		"Weissle/persistent-breakpoints.nvim",
-		config = function()
-			require("persistent-breakpoints").setup({
-				load_breakpoints_event = { "BufReadPost" },
-			})
 		end,
 	},
 	{
