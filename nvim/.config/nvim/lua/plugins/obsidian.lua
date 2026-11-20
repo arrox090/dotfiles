@@ -5,6 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	opts = {
+		-- Disable automatic frontmatter (stops adding unwanted IDs at the top of notes on save)
 		frontmatter = {
 			enabled = false,
 		},
