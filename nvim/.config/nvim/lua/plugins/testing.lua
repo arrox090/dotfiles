@@ -6,5 +6,4 @@ return {
 	-- { "mbbill/undotree" },
 	-- { "nvim-pack/nvim-spectre" },
 	-- { "folke/flash.nvim" },
-	-- { "mikavilpas/yazi.nvim" }
 }

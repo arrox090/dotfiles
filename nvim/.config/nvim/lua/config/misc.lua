@@ -1,89 +1,122 @@
 local keymap = vim.keymap.set
 
--- execute files
-local function run_file()
-	-- Get the path of the current file
-	local current_file = vim.fn.expand("%p")
+local runners = {
+	python = "python3",
+	lua = "lua",
+	sh = "bash",
+	java = "runjava",
+	c = "runc",
+	cpp = "runcpp",
+	html = "open",
+	cs = "dotnet run",
+}
 
-	-- Add a backslash in front of every space
-	current_file = current_file:gsub(" ", "\\ ")
+-- Session cache for the last executed command
+local last_run_cmd = nil
 
-	-- Get file extension
-	local file_extension = vim.bo.filetype
+-- Helper to climb upwards and find a project root, stopping strictly before $HOME
+local function find_project_root(markers)
+	local current_dir = vim.fn.expand("%:p:h")
 
-	-- Get language
-	local language_command
-	if file_extension == "python" then
-		language_command = "python3 "
-	elseif file_extension == "java" then
-		language_command = "runjava "
-	elseif file_extension == "lua" then
-		language_command = "lua "
-	elseif file_extension == "c" then
-		language_command = "runc "
-	elseif file_extension == "cpp" then
-		language_command = "runcpp "
-	elseif file_extension == "html" then
-		language_command = "open "
-	elseif file_extension == "sh" then
-		language_command = "./"
+	-- If the file is not inside $HOME (e.g. /usr, /etc, /tmp), don't search:
+	if not vim.startswith(current_dir, vim.env.HOME) then
+		return nil
 	end
-	-- print(language_command)
-	-- print(file_extension)
 
-	-- Execute : commands
-	vim.cmd("wa | vsp | term")
+	local match = vim.fs.find(markers, {
+		upward = true,
+		stop = vim.env.HOME,
+		path = vim.fn.expand("%:p:h"),
+	})[1]
 
-	local cmd
-	if file_extension == "cs" then
-		cmd = "dotnet run"
+	return match and vim.fs.dirname(match)
+end
+
+-- Helper to execute in Tmux (or fallback split)
+local function execute_cmd(cmd)
+	vim.cmd("silent wa") -- Save all buffers before running
+
+	if vim.env.TMUX then
+		vim.fn.VimuxRunCommand(cmd)
 	else
-		cmd = language_command .. current_file
+		vim.cmd("botright 15split | term " .. cmd)
 	end
-
-	-- Enter command to the terminal
-	vim.api.nvim_feedkeys(("i%s"):format(cmd), "t", true)
 end
 
+-- Helper to build the command for the current active buffer
+local function build_current_file_cmd()
+	local filetype = vim.bo.filetype
+	local cmd_prefix = runners[filetype]
+
+	if not cmd_prefix then
+		vim.notify("No runner configured for filetype: " .. filetype, vim.log.levels.WARN)
+		return nil
+	end
+
+	-- For C#: cd into project directory if found else use current dir and run dotnet run
+	if filetype == "cs" then
+		local root = find_project_root(function(name)
+			return name:match("%.csproj$") or name:match("%.sln$")
+		end) or vim.fn.expand("%:p:h")
+
+		return "cd " .. vim.fn.fnameescape(root) .. " && dotnet run"
+	end
+
+	local current_file = vim.fn.expand("%:p")
+	return cmd_prefix .. " " .. vim.fn.fnameescape(current_file)
+end
+
+-- Run This File (<leader>rt) -> Forces target to current buffer & runs it
+local function run_this_file()
+	local cmd = build_current_file_cmd()
+	if cmd then
+		last_run_cmd = cmd
+		vim.notify("Runner target set to: " .. cmd, vim.log.levels.INFO)
+		execute_cmd(cmd)
+	end
+end
+
+-- Run Last (<leader>rf) -> PyCharm style: runs last target, or current if first time
+local function run_file()
+	if not last_run_cmd then
+		last_run_cmd = build_current_file_cmd()
+	end
+
+	if last_run_cmd then
+		execute_cmd(last_run_cmd)
+	end
+end
+
+-- Sudo Run (Shell scripts only: <leader>rs)
 local function run_file_sudo()
-	-- Get the path of the current file
-	local current_file = vim.fn.expand("%p")
-
-	-- Add a backslash in front of every space
-	current_file = current_file:gsub(" ", "\\ ")
-
-	-- Get file extension
-	local file_extension = vim.bo.filetype
-
-	-- Get language
-	local language_command
-	if file_extension == "python " then
-		language_command = "python3 "
-	elseif file_extension == "java" then
-		language_command = "runjava "
-	elseif file_extension == "lua" then
-		language_command = "lua "
-	elseif file_extension == "c" then
-		language_command = "runc "
-	elseif file_extension == "html" then
-		language_command = "open "
-	elseif file_extension == "sh" then
-		language_command = "./"
+	local filetype = vim.bo.filetype
+	if filetype ~= "sh" then
+		vim.notify("sudo run is only configured for shell scripts (.sh)", vim.log.levels.WARN)
+		return
 	end
-	-- print(language_command)
-	-- print(file_extension)
 
-	-- Execute : commands
-	vim.cmd("wa | vsp | term")
-
-	-- Enter command to the terminal
-	vim.api.nvim_feedkeys(("isudo %s%s"):format(language_command, current_file), "t", true)
+	local current_file = vim.fn.expand("%:p")
+	local cmd = "sudo bash " .. vim.fn.fnameescape(current_file)
+	execute_cmd(cmd)
 end
 
-keymap("n", "<leader>rf", run_file, { silent = true, desc = "Compile and run current buffer(file)" })
-keymap(
-	"n",
-	"<leader>ra",
-	run_file_sudo,
-	{ silent = true, desc = "Compile and run current buffer(file) with administrator permissions" }
-)
+-- Minecraft Modding Runner (<leader>rm) -> Finds gradlew and runs runClient
+local function run_minecraft()
+	-- try to find gradlew in parent dirs
+	local root = find_project_root({ "gradlew", "build.gradle", "build.gradle.kts" })
+	if not root then
+		vim.notify("Could not find Minecraft project root (gradlew / build.gradle)", vim.log.levels.WARN)
+		return
+	end
+
+	local cmd = "cd " .. vim.fn.fnameescape(root) .. " && ./gradlew runClient"
+	last_run_cmd = cmd
+	vim.notify("Runner target set to Minecraft: " .. cmd, vim.log.levels.INFO)
+	execute_cmd(cmd)
+end
+
+-- Keymaps:
+keymap("n", "<leader>rt", run_this_file, { silent = true, desc = "Set as runner target and run this file" })
+keymap("n", "<leader>rf", run_file, { silent = true, desc = "Run active target (or current file)" })
+keymap("n", "<leader>rs", run_file_sudo, { silent = true, desc = "Run shell script with sudo" })
+keymap("n", "<leader>rm", run_minecraft, { silent = true, desc = "Run Minecraft client (gradlew runClient)" })
