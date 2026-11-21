@@ -20,25 +20,36 @@ keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
 
 -- exit insert mode
-keymap("i", "jk", "<ESC>")
-keymap("t", "jk", "<C-\\><C-n>", { silent = true })
+-- keymap("i", "jk", "<ESC>")
+-- keymap("t", "jk", "<C-\\><C-n>", { silent = true })
 
--- insert empty line below
-keymap("n", "<CR>", "o<ESC>")
+-- Insert empty line below in code files, but keep native Enter in help, quickfix, and command windows:
+keymap("n", "<CR>", function()
+	if vim.bo.buftype ~= "" or vim.bo.filetype == "qf" then
+		return "<CR>"
+	end
+	return "o<ESC>"
+end, { expr = true, desc = "Insert blank line below" })
+
+-- Disable accidental command history popup when mistyping :q
+keymap("n", "q:", "<nop>", { desc = "Disable accidental q: window" })
 
 -- Go the the previously open file
 keymap("n", "<leader><tab>", "<C-^>", { desc = "Go to previous file" })
-
--- -- command to enter terminal
--- keymap(
--- 	"n",
--- 	"<leader>ot",
--- 	":split | resize 20 | startinsert | term<CR>",
--- 	{ desc = "Open terminal in split window below", noremap = true }
--- )
 
 -- navitage vim panes
 keymap("n", "<C-h>", "<C-w>h", { desc = "Go to left split" })
 keymap("n", "<C-j>", "<C-w>j", { desc = "Go to below split" })
 keymap("n", "<C-k>", "<C-w>k", { desc = "Go to above split" })
 keymap("n", "<C-l>", "<C-w>l", { desc = "Go to right split" })
+
+-- Move single line in Normal mode:
+keymap("n", "]e", "<cmd>m .+1<CR>==", { desc = "Move line down" })
+keymap("n", "[e", "<cmd>m .-2<CR>==", { desc = "Move line up" })
+
+-- Move highlighted block in Visual mode:
+keymap("v", "]e", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+keymap("v", "[e", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
+-- Map U to redo, so its u=undo, U=redo
+keymap("n", "U", "<C-r>", { desc = "Redo" })

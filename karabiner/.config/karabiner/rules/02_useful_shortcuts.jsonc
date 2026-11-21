@@ -1,0 +1,73 @@
+[
+  // USEFUL CONTROL + SOMETHING SHORTCUTS
+  {
+    "description": "Map ctrl+something to other keys",
+    "manipulators": [
+      // ctrl + o for backspace
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "o",
+          "modifiers": {
+            "mandatory": ["control"],
+            "optional": ["option"],
+          },
+        },
+        "to": [{ "key_code": "delete_or_backspace" }],
+      },
+      // ctrl + i for enter
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "i",
+          "modifiers": {
+            "mandatory": ["control"],
+            "optional": ["shift"],
+          },
+        },
+        "to": [{ "key_code": "return_or_enter" }],
+      },
+      // ctrl + ' for f1 so that in yazi i can map that to tmux split horizontally
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "quote",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [{ "key_code": "f1", "modifiers": ["fn"] }],
+        "conditions": [
+          {
+            "bundle_identifiers": ["com.mitchellh.ghostty"],
+            "type": "frontmost_application_if",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    "description": "Moonlight: Shift + Escape to release mouse capture (Ctrl+Alt+Shift+Z)",
+    "manipulators": [
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "escape",
+          "modifiers": {
+            "mandatory": ["shift"],
+          },
+        },
+        "to": [
+          {
+            "key_code": "z",
+            "modifiers": ["control", "option", "shift"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+    ],
+  },
+]

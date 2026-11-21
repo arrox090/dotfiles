@@ -14,6 +14,16 @@ return {
 			return nil
 		end
 
+		local function macro_recording()
+			local reg = vim.fn.reg_recording()
+
+			if reg == "" then
+				return ""
+			end
+
+			return "󰑋 recording @" .. reg
+		end
+
 		local colors = {
 			blue = "#65D1FF",
 			green = "#3EFFDC",
@@ -79,6 +89,10 @@ return {
 					"diagnostics", -- Show diagnostics (LSP errors/warnings)
 				},
 				lualine_x = {
+					{
+						macro_recording,
+						color = { fg = "#FF4A4A", gui = "bold" },
+					},
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,

@@ -1,3 +1,8 @@
-tmux/.tmux/plugins/
-ncspot/.config/ncspot/userstate.cbor
-nvim/.config/nvim/lazy-lock.json
+# macOS metadata
+.DS_Store
+._*
+
+# Local machine-specific overrides (tokens, private aliases, device specific setups etc.)
+*.local
+*.local.*
+*.env

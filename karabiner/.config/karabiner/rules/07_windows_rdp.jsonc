@@ -1,0 +1,47 @@
+[
+  // SOME REBINDS FOR WINDOWS (RDP)
+  {
+    "description": "Command as windows key for some shortcuts",
+    "manipulators": [
+      // Workspaces manipulation
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "s",
+          "modifiers": { "mandatory": ["control", "shift"] },
+        },
+        "to": [{ "key_code": "s", "modifiers": ["command", "shift"] }],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.microsoft.rdc.macos"],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "s",
+          "modifiers": { "mandatory": ["control", "shift"] },
+        },
+        "to": [{ "key_code": "s", "modifiers": ["command", "shift"] }],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.microsoft.rdc.macos"],
+          },
+        ],
+      },
+    ],
+  },
+]
