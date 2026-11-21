@@ -5,6 +5,9 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	opts = {
+		-- supress annoying Legacy Commands warning
+		legacy_commands = false,
+
 		-- Disable automatic frontmatter (stops adding unwanted IDs at the top of notes on save)
 		frontmatter = {
 			enabled = false,
@@ -19,8 +22,17 @@ return {
 	keys = {
 		{
 			"<leader>fo",
-			"<cmd>Obsidian quick_switch<cr>",
-			desc = "Find obsidian note",
+			function()
+				require("fzf-lua").files({
+					cwd = "~/notes",
+					cwd_header = false,
+					cwd_prompt = false,
+					prompt = "Notes> ",
+					hidden = false,
+					fd_opts = "--type f --extension md --exclude .obsidian",
+				})
+			end,
+			desc = "Fuzzy find obsidian note",
 		},
 		{
 			"<leader>ob",
