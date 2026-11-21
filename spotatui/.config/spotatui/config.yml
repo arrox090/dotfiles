@@ -48,6 +48,7 @@ behavior:
   announcement_feed_url: null
   seen_announcement_ids:
   - 2026-02-27-major-refactor-complete
+  - 2026-05-19-sonos-help-wanted
   shuffle_enabled: true
   liked_icon: ♥
   shuffle_icon: 🔀

@@ -50,7 +50,7 @@ hyprctl eval 'hl.monitor({ output = "virtual-display", mode = "1920x1080@60", po
   notify "Sunshine Mac Do ERROR" 'Failed to change resolution of the virtual display!'
 }
 
-# PERHAPS CAN ONLY DISABLE ONE MONITOR cause other one doesnt come back? check
+# TODO: PERHAPS CAN ONLY DISABLE ONE MONITOR cause other one doesnt come back? check
 # hyprctl dispatch 'hl.dsp.dpms({ action = "disable", monitor = "DP-2" })'
 # hyprctl dispatch 'hl.dsp.dpms({ action = "disable", monitor = "DP-3" })'
 
