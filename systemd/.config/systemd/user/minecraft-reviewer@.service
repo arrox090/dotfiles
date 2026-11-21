@@ -1,0 +1,12 @@
+[Unit]
+Description=Minecraft crash reviewer (read-only AI): %i
+After=network-online.target mnt-windows.mount
+Wants=network-online.target
+RequiresMountsFor=/mnt/windows
+
+[Service]
+Type=oneshot
+WorkingDirectory=/mnt/windows/servers/minecraft
+ExecStartPre=/usr/bin/sleep 5
+ExecStart=/usr/bin/bash /mnt/windows/servers/minecraft/scripts/run_reviewer.sh %i
+TimeoutStartSec=300

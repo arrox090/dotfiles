@@ -1,0 +1,10 @@
+[Unit]
+Description=Minecraft Backup: %i
+After=network.target mnt-nas\x2dstuff.mount
+RequiresMountsFor=/mnt/windows
+
+[Service]
+Type=oneshot
+WorkingDirectory=/mnt/windows/servers/minecraft/scripts
+EnvironmentFile=/mnt/windows/servers/minecraft/scripts/.env
+ExecStart=/usr/bin/python3 /mnt/windows/servers/minecraft/scripts/backup.py %i
