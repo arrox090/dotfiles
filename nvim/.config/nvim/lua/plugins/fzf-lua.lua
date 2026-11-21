@@ -5,6 +5,13 @@ return {
 		config = function()
 			local actions = require("fzf-lua.actions")
 			require("fzf-lua").setup({
+				files = {
+					file_ignore_patterns = {
+						"__pycache__",
+						"~%$", -- Temporary Word, Excel etc. files (starting with ~$)
+						"~$", -- Other temporary files (ending with ~)
+					},
+				},
 				winopts = {
 					on_create = function()
 						vim.api.nvim_buf_set_keymap(0, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
