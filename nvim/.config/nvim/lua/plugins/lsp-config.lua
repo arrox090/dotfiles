@@ -35,7 +35,8 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls", -- Lua (Neovim configs)
-					"pyright", -- Python
+					"basedpyright", -- Python
+					"jdtls", -- Java
 					"clangd", -- C / C++
 					"bashls", -- Bash
 					"marksman", -- Markdown (Notes & AI context)
@@ -82,6 +83,22 @@ return {
 				"<leader>fd",
 				require("fzf-lua").diagnostics_document,
 				{ desc = "Document diagnostics" }
+			)
+			vim.keymap.set("n", "<leader>th", function()
+				local current = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+				vim.lsp.inlay_hint.enable(not current, { bufnr = 0 })
+				vim.notify("Inlay hints: " .. (not current and "ON" or "OFF"), vim.log.levels.INFO)
+			end, { desc = "Toggle Inlay Hints" })
+
+			-- Find all references across the whole project in FzfLua:
+			vim.keymap.set("n", "gr", require("fzf-lua").lsp_references, { desc = "Fuzzy find references in project" })
+
+			-- Search any function/class/method across the entire workspace by name:
+			vim.keymap.set(
+				"n",
+				"<leader>fS",
+				require("fzf-lua").lsp_live_workspace_symbols,
+				{ desc = "Fuzzy find workspace symbols" }
 			)
 		end,
 	},
