@@ -1,0 +1,20 @@
+[Unit]
+Description=Minecraft Server in tmux: %i
+After=network.target mnt-windows.mount
+RequiresMountsFor=/mnt/windows
+Wants=minecraft-watcher@%i.service
+StartLimitIntervalSec=600s
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/windows/servers/minecraft/instances/%i
+ExecStart=/usr/bin/bash /mnt/windows/servers/minecraft/scripts/serve.sh %i
+ExecStop=/usr/bin/bash -c "/usr/bin/tmux -L services send-keys -t mc-%i 'stop' ENTER; while /usr/bin/tmux -L services has-session -t mc-%i 2>/dev/null; do sleep 0.5; done; while kill -0 $MAINPID 2>/dev/null; do sleep 0.2; done"
+ExecStopPost=-/usr/bin/bash -c '[ "$$SERVICE_RESULT" != success ] && /usr/bin/systemctl --user start --no-block minecraft-reviewer@%i.service; exit 0'
+TimeoutStopSec=40s
+Restart=on-failure
+RestartSec=30s
+
+[Install]
+WantedBy=default.target
