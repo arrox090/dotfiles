@@ -6,3 +6,7 @@
 *.local
 *.local.*
 *.env
+
+# Don't ignore .local directory
+!*/.local/
+!*/.local/**
