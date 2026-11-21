@@ -43,25 +43,6 @@ zinit light Aloxaf/fzf-tab
 zinit light jeffreytse/zsh-vi-mode
 
 ###################################
-# MY OWN SCRIPTS/TOOLS/ MANUAL BUILDS
-###################################
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-
-###################################
-# ENV
-###################################
-export EDITOR='nvim'
-export SUDO_EDITOR="$EDITOR"
-export ZVM_VI_EDITOR="$EDITOR"
-# export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-export PATH="$HOME/.tmuxifier/bin:$PATH"
-# export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
-export BAT_THEME="Catppuccin Mocha"
-
-
-###################################
 # EVAL
 ###################################
 eval "$(tmuxifier init -)"
@@ -86,10 +67,11 @@ alias sz='source ~/.zshrc && echo ~/.zshrc sourced'
 alias svim='sudo -E nvim'
 
 if [[ "$os" == "Darwin" ]]; then
-  export DOTNET_ROOT="$(brew --prefix dotnet)/libexec"
-
   alias wattage="ioreg -r -n AppleSmartBattery | awk '/\"Amperage\" =/{a=\$3} /\"Voltage\" =/{v=\$3} END {print (a*v)/1000000 \" W\"}'"
   alias lsend="localsend-cli send"
+  alias lsa="tmux -L services attach -t localsend"
+  alias lsk="tmux -L services kill-session -t localsend"
+  alias lsr="tmux -L services kill-session -t localsend 2>/dev/null; tmux -L services new-session -d -s localsend 'localsend-cli --port 53318'"
 
   jhome() {
     export JAVA_HOME=$(/usr/libexec/java_home -v "$1")
