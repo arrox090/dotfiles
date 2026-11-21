@@ -1,0 +1,16 @@
+[Unit]
+Description=Minecraft Discord Watcher: %i
+After=minecraft@%i.service
+PartOf=minecraft@%i.service
+RequiresMountsFor=/mnt/windows
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/windows/servers/minecraft/scripts
+EnvironmentFile=/mnt/windows/servers/minecraft/scripts/.env
+ExecStart=/usr/bin/python3 /mnt/windows/servers/minecraft/scripts/discord_watcher.py %i
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=default.target

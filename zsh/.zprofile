@@ -7,6 +7,8 @@ export BAT_THEME="Catppuccin Mocha"
 export ZVM_VI_EDITOR="$EDITOR"
 # export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 # export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+export PAGER="nvimpager"
+export MANPAGER="$PAGER"
 
 # For manual builds / custom scripts mostly
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.tmuxifier/bin:$PATH"
@@ -31,4 +33,7 @@ elif [[ -f /etc/arch-release ]]; then
   if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
     exec uwsm start hyprland.desktop
   fi
+
+  # so himalaya does not show those warnings that do nothing
+  export RUST_LOG=himalaya=off
 fi
