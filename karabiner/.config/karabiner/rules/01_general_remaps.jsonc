@@ -1,0 +1,84 @@
+[
+  // GENERAL REMAPS
+  // Command keys to Control + tracking
+  {
+    "description": "Map Command keys to Control and Track left and right command held state",
+    "manipulators": [
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "left_command",
+          "modifiers": { "optional": ["any"] },
+        },
+        "to": [
+          {
+            "set_variable": {
+              "name": "physical_left_cmd_held",
+              "value": 1,
+            },
+          },
+          { "key_code": "left_control" },
+        ],
+        "to_after_key_up": [
+          {
+            "set_variable": {
+              "name": "physical_left_cmd_held",
+              "value": 0,
+            },
+          },
+        ],
+        "conditions": [
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "right_command",
+          "modifiers": { "optional": ["any"] },
+        },
+        "to": [
+          {
+            "set_variable": {
+              "name": "physical_right_cmd_held",
+              "value": 1,
+            },
+          },
+          { "key_code": "left_control" },
+        ],
+        "to_after_key_up": [
+          {
+            "set_variable": {
+              "name": "physical_right_cmd_held",
+              "value": 0,
+            },
+          },
+        ],
+        "conditions": [
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+    ],
+  },
+  // Caps Lock to Escape on tap and Control on hold
+  {
+    "description": "Caps Lock to Escape on tap and Control on hold",
+    "manipulators": [
+      {
+        "from": {
+          "key_code": "caps_lock",
+          "modifiers": { "optional": ["any"] },
+        },
+        "to": [{ "key_code": "left_control" }],
+        "to_if_alone": [{ "key_code": "escape" }],
+        "type": "basic",
+      },
+    ],
+  },
+]

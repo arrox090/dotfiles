@@ -20,8 +20,13 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
+
+	-- saves to ~/.local/share/nvim/
+	lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
+
 	-- colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "habamax" } },
+
 	-- automatically check for changes in files
 	change_detection = {
 		enabled = true,

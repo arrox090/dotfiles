@@ -1,6 +1,7 @@
 return {
 	{
 		"hrsh7th/cmp-nvim-lsp",
+		"FelipeLema/cmp-async-path",
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -31,7 +32,25 @@ return {
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					["<CR>"] = cmp.mapping.confirm({ select = false }), -- select = false -> only confirm explicitly selected items.
+
+					-- Jump to next snippet field (or type normal Tab)
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if luasnip.jumpable(1) then
+							luasnip.jump(1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+
+					-- Jump back to previous snippet field (or type normal Shift-Tab)
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 				}),
 
 				formatting = {
@@ -74,6 +93,12 @@ return {
 						end,
 					},
 					{ name = "luasnip", priority = 750 },
+					{
+						name = "async_path",
+						priority = 800,
+						keyword_length = 0,
+						option = { trailing_slash = true },
+					},
 				}, {
 					{ name = "buffer", priority = 500 },
 				}),

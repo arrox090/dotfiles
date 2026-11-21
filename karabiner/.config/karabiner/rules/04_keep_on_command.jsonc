@@ -1,0 +1,271 @@
+[
+  // SHORTCUTS TO KEEP ON COMMAND
+  {
+    "description": "Keep those keyboard shortcuts on command",
+    "manipulators": [
+      // Keep Command + W (close window)
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "w",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "w",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": [
+              "com.mitchellh.ghostty",
+              "com.moonlight-stream.Moonlight",
+            ],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "w",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "w",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": [
+              "com.mitchellh.ghostty",
+              "com.moonlight-stream.Moonlight",
+            ],
+          },
+        ],
+      },
+      // Keep Command + Q (quit app)
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "q",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "q",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": [
+              "com.mitchellh.ghostty",
+              "com.moonlight-stream.Moonlight",
+            ],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "q",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "q",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": [
+              "com.mitchellh.ghostty",
+              "com.moonlight-stream.Moonlight",
+            ],
+          },
+        ],
+      },
+      // Keep Command + Option + Esc (force quit app)
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "escape",
+          "modifiers": { "mandatory": ["control", "option"] },
+        },
+        "to": [
+          {
+            "key_code": "escape",
+            "modifiers": ["command", "option"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "escape",
+          "modifiers": { "mandatory": ["control", "option"] },
+        },
+        "to": [
+          {
+            "key_code": "escape",
+            "modifiers": ["command", "option"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+      // Keep Command + comma
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "comma",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "comma",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "comma",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "comma",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
+          },
+        ],
+      },
+      // Keep Command + D (Bookmard a tab)
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "d",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "d",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": [
+              "com.mitchellh.ghostty",
+              "com.moonlight-stream.Moonlight",
+            ],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "d",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "d",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_unless",
+            "bundle_identifiers": [
+              "com.mitchellh.ghostty",
+              "com.moonlight-stream.Moonlight",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+]

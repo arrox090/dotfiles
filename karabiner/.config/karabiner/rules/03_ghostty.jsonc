@@ -1,0 +1,100 @@
+[
+  // GHOSTTY REMAPS
+  {
+    "description": "Ghostty: control+shift+c/v - copy/paste",
+    "manipulators": [
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "c",
+          "modifiers": { "mandatory": ["control", "shift"] },
+        },
+        "to": [
+          {
+            "key_code": "c",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.mitchellh.ghostty"],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "v",
+          "modifiers": { "mandatory": ["control", "shift"] },
+        },
+        "to": [
+          {
+            "key_code": "v",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.mitchellh.ghostty"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    "description": "Ghostty: Missing imporant keybinds that don't work as we don't swap control to command",
+    "manipulators": [
+      // Command + W to Command + Q for both left and right Command
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "w",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "q",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_left_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.mitchellh.ghostty"],
+          },
+        ],
+      },
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "w",
+          "modifiers": { "mandatory": ["control"] },
+        },
+        "to": [
+          {
+            "key_code": "q",
+            "modifiers": ["command"],
+          },
+        ],
+        "conditions": [
+          {
+            "type": "variable_if",
+            "name": "physical_right_cmd_held",
+            "value": 1,
+          },
+          {
+            "type": "frontmost_application_if",
+            "bundle_identifiers": ["com.mitchellh.ghostty"],
+          },
+        ],
+      },
+    ],
+  },
+]

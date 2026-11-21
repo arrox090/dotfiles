@@ -18,6 +18,12 @@ return {
 				load_breakpoints_event = { "BufReadPost" },
 			})
 
+			dap.adapters.docker = {
+				type = "server",
+				host = "127.0.0.1",
+				port = 5678,
+			}
+
 			dap.configurations.python = {
 				{
 					type = "python",
@@ -45,6 +51,14 @@ return {
 						return "/usr/bin/python3"
 					end,
 				},
+				{
+					type = "docker",
+					request = "attach",
+					name = "Attach Docker (Erasmus/Django)",
+					pathMappings = {
+						{ localRoot = vim.fn.getcwd() .. "/oms", remoteRoot = "/home/app/web" },
+					},
+				},
 			}
 
 			vim.fn.sign_define("DapBreakpoint", { text = "\u{f111}", texthl = "DapBreakpoint" })
@@ -55,7 +69,39 @@ return {
 
 			keymap("n", "<leader>db", pb.toggle_breakpoint, { desc = "Toggle breakpoint" })
 			keymap("n", "<leader>dB", pb.clear_all_breakpoints, { desc = "Clear all breakpoints" })
-			keymap("n", "<leader>dc", dap.continue, { desc = "Start/continue debugging" })
+			keymap("n", "<leader>dc", function()
+				if dap.session() then
+					dap.continue()
+					return
+				end
+
+				local configs = dap.configurations[vim.bo.filetype] or {}
+				if #configs == 0 then
+					vim.notify("No DAP configurations for " .. vim.bo.filetype, vim.log.levels.WARN)
+					return
+				end
+
+				local names = {}
+				for _, c in ipairs(configs) do
+					table.insert(names, c.name)
+				end
+
+				require("fzf-lua").fzf_exec(names, {
+					prompt = "DAP (" .. vim.bo.filetype .. ")> ",
+					winopts = { height = 0.35, width = 0.5 },
+					actions = {
+						["default"] = function(selected)
+							local choice = selected[1]
+							for _, c in ipairs(configs) do
+								if c.name == choice then
+									dap.run(c)
+									break
+								end
+							end
+						end,
+					},
+				})
+			end, { desc = "Start/continue debugging" })
 			keymap("n", "<leader>do", dap.step_over, { desc = "Step over" })
 			keymap("n", "<leader>di", dap.step_into, { desc = "Step into" })
 			keymap("n", "<leader>dO", dap.step_out, { desc = "Step out" })
