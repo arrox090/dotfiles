@@ -36,6 +36,8 @@ return {
 	-- { "coder/claudecode.nvim" },
 	-- { "nvim-pack/nvim-spectre" },
 	-- { "folke/flash.nvim" },
+	-- { "akinsho/git-conflict.nvim" },
+	-- { "sindrets/diffview.nvim" },
 	-- { "milanglacier/minuet-ai.nvim" },  -- some free api for this / ollama model for inline code suggestions
 	-- {
 	--   "smjonas/inc-rename.nvim",
