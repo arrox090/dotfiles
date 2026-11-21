@@ -1,969 +1,969 @@
 [
-  // HYPRLAND LIKE KEYBINDS (AEROSPACE + OTHER)
-  {
-    "description": "Command as mainMod for hyprland like keybinds",
-    "manipulators": [
-      // Workspaces manipulation
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "1",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "1", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "1",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "1", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "2",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "2", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "2",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "2", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "3",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "3", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "3",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "3", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "4",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "4", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "4",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "4", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "5",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "5", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "5",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "5", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "6",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "6", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "6",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "6", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "7",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "7", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "7",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "7", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "8",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "8", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "8",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "8", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "9",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "9", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "9",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "9", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      // Open apps
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "return_or_enter",
-          "modifiers": { "mandatory": ["control"] },
-        },
-        "to": [{ "key_code": "return_or_enter", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "return_or_enter",
-          "modifiers": { "mandatory": ["control"] },
-        },
-        "to": [{ "key_code": "return_or_enter", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "b",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "b", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "b",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "b", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      // Open browser tabs
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "g",
-          "modifiers": { "mandatory": ["control"] },
-        },
-        "to": [{ "key_code": "g", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "g",
-          "modifiers": { "mandatory": ["control"] },
-        },
-        "to": [{ "key_code": "g", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      // Splits navigation
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "h",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "h", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "h",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "h", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "j",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "j", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "j",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "j", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "k",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "k", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "k",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "k", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "l",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "l", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "l",
-          "modifiers": {
-            "mandatory": ["control"],
-            "optional": ["shift"],
-          },
-        },
-        "to": [{ "key_code": "l", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      // 'Walker' stuff (raycast/alfred on mac)
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "spacebar",
-          "modifiers": { "mandatory": ["control"] },
-        },
-        "to": [{ "key_code": "spacebar", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "spacebar",
-          "modifiers": { "mandatory": ["control"] },
-        },
-        "to": [{ "key_code": "spacebar", "modifiers": ["command"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      // Toggle source code in obsidian with cmd + opt + e
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "e",
-          "modifiers": { "mandatory": ["control", "option"] },
-        },
-        "to": [{ "key_code": "e", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "e",
-          "modifiers": { "mandatory": ["control", "option"] },
-        },
-        "to": [{ "key_code": "e", "modifiers": ["command", "option"] }],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      // Neru keybinds
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "g",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru grid",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "g",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru grid",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "c",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru recursive_grid",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "c",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru recursive_grid",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "s",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru scroll",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "s",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru scroll",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "spacebar",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            // "shell_command": "rm -f /tmp/neru_stop && sleep 0.2 && /opt/homebrew/bin/neru hints --action left_click --on-exit \"exec ~/.config/neru/loop.sh\""
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru hints",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_left_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-      {
-        "type": "basic",
-        "from": {
-          "key_code": "spacebar",
-          "modifiers": { "mandatory": ["control", "shift"] },
-        },
-        "to": [
-          {
-            // "shell_command": "rm -f /tmp/neru_stop && sleep 0.2 && /opt/homebrew/bin/neru hints --action left_click --on-exit \"exec ~/.config/neru/loop.sh\""
-            "shell_command": "sleep 0.2 && /opt/homebrew/bin/neru hints",
-          },
-        ],
-        "conditions": [
-          {
-            "type": "variable_if",
-            "name": "physical_right_cmd_held",
-            "value": 1,
-          },
-          {
-            "type": "frontmost_application_unless",
-            "bundle_identifiers": ["com.moonlight-stream.Moonlight"],
-          },
-        ],
-      },
-    ],
-  },
+	// HYPRLAND LIKE KEYBINDS (AEROSPACE + OTHER)
+	{
+		"description": "Command as mainMod for hyprland like keybinds",
+		"manipulators": [
+			// Workspaces manipulation
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "1",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "1", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "1",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "1", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "2",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "2", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "2",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "2", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "3",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "3", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "3",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "3", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "4",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "4", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "4",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "4", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "5",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "5", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "5",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "5", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "6",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "6", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "6",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "6", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "7",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "7", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "7",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "7", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "8",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "8", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "8",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "8", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "9",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "9", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "9",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "9", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			// Open apps
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "return_or_enter",
+					"modifiers": { "mandatory": ["control"] }
+				},
+				"to": [{ "key_code": "return_or_enter", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "return_or_enter",
+					"modifiers": { "mandatory": ["control"] }
+				},
+				"to": [{ "key_code": "return_or_enter", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "b",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "b", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "b",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "b", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			// Open browser tabs
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "g",
+					"modifiers": { "mandatory": ["control"] }
+				},
+				"to": [{ "key_code": "g", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "g",
+					"modifiers": { "mandatory": ["control"] }
+				},
+				"to": [{ "key_code": "g", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			// Splits navigation
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "h",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "h", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "h",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "h", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "j",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "j", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "j",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "j", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "k",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "k", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "k",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "k", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "l",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "l", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "l",
+					"modifiers": {
+						"mandatory": ["control"],
+						"optional": ["shift"]
+					}
+				},
+				"to": [{ "key_code": "l", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			// 'Walker' stuff (raycast/alfred on mac)
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "spacebar",
+					"modifiers": { "mandatory": ["control"] }
+				},
+				"to": [{ "key_code": "spacebar", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "spacebar",
+					"modifiers": { "mandatory": ["control"] }
+				},
+				"to": [{ "key_code": "spacebar", "modifiers": ["command"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			// Toggle source code in obsidian with cmd + opt + e
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "e",
+					"modifiers": { "mandatory": ["control", "option"] }
+				},
+				"to": [{ "key_code": "e", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "e",
+					"modifiers": { "mandatory": ["control", "option"] }
+				},
+				"to": [{ "key_code": "e", "modifiers": ["command", "option"] }],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			// Neru keybinds
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "g",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru grid"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "g",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru grid"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "c",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru recursive_grid"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "c",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru recursive_grid"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "s",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru scroll"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "s",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru scroll"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "spacebar",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						// "shell_command": "rm -f /tmp/neru_stop && sleep 0.2 && /opt/homebrew/bin/neru hints --action left_click --on-exit \"exec ~/.config/neru/loop.sh\""
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru hints --action left_click"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_left_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			},
+			{
+				"type": "basic",
+				"from": {
+					"key_code": "spacebar",
+					"modifiers": { "mandatory": ["control", "shift"] }
+				},
+				"to": [
+					{
+						// "shell_command": "rm -f /tmp/neru_stop && sleep 0.2 && /opt/homebrew/bin/neru hints --action left_click --on-exit \"exec ~/.config/neru/loop.sh\""
+						"shell_command": "sleep 0.2 && /opt/homebrew/bin/neru hints --action left_click"
+					}
+				],
+				"conditions": [
+					{
+						"type": "variable_if",
+						"name": "physical_right_cmd_held",
+						"value": 1
+					},
+					{
+						"type": "frontmost_application_unless",
+						"bundle_identifiers": ["com.moonlight-stream.Moonlight"]
+					}
+				]
+			}
+		]
+	}
 ]
