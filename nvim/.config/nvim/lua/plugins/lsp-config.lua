@@ -32,11 +32,42 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			-- Configure bashls for zsh
 			if vim.lsp.config then
+				-- Configure bashls for zsh
 				vim.lsp.config("bashls", {
 					capabilities = capabilities,
 					filetypes = { "sh", "bash", "zsh" },
+				})
+
+				-- Auto-detect .venv and activate it for basedpyright and the session:
+				vim.lsp.config("basedpyright", {
+					capabilities = capabilities,
+					before_init = function(_, config)
+						local find_project_root = require("config.misc").find_project_root
+						local root = find_project_root and find_project_root({ ".venv", "venv" })
+
+						if root then
+							local uv = vim.uv
+							local venv_python = root .. "/.venv/bin/python"
+							local venv_dir = root .. "/.venv"
+
+							if not uv.fs_stat(venv_python) then
+								venv_python = root .. "/venv/bin/python"
+								venv_dir = root .. "/venv"
+							end
+
+							if uv.fs_stat(venv_python) then
+								-- 1. Tell Basedpyright to use the venv's python:
+								config.settings = config.settings or {}
+								config.settings.python = config.settings.python or {}
+								config.settings.python.pythonPath = venv_python
+
+								-- 2. Set environment variables for the current Neovim session:
+								vim.env.VIRTUAL_ENV = venv_dir
+								vim.env.PATH = venv_dir .. "/bin:" .. vim.env.PATH
+							end
+						end
+					end,
 				})
 			end
 

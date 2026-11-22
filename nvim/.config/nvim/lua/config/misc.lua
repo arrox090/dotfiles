@@ -142,3 +142,8 @@ keymap("n", "<leader>rt", run_this_file, { silent = true, desc = "Set as runner 
 keymap("n", "<leader>rf", run_file, { silent = true, desc = "Run active target (or current file)" })
 keymap("n", "<leader>rs", run_file_sudo, { silent = true, desc = "Run shell script with sudo" })
 keymap("n", "<leader>rm", run_minecraft, { silent = true, desc = "Run Minecraft client (gradlew runClient)" })
+
+-- Export find_project_root function, so it can be used acros the whole neovim config
+return {
+	find_project_root = find_project_root,
+}
