@@ -53,3 +53,7 @@ keymap("v", "[e", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 -- Map U to redo, so its u=undo, U=redo
 keymap("n", "U", "<C-r>", { desc = "Redo" })
+
+-- Increment and decrement a number with + and -
+vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Increment number" })
+vim.keymap.set({ "n", "v" }, "-", "<C-x>", { desc = "Decrement number" })
