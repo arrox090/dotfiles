@@ -42,6 +42,14 @@ return {
 				-- Auto-detect .venv and activate it for basedpyright and the session:
 				vim.lsp.config("basedpyright", {
 					capabilities = capabilities,
+					settings = {
+						basedpyright = {
+							analysis = {
+								typeCheckingMode = "standard",
+							},
+						},
+					},
+
 					before_init = function(_, config)
 						local find_project_root = require("config.misc").find_project_root
 						local root = find_project_root and find_project_root({ ".venv", "venv" })
