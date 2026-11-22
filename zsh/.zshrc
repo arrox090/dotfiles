@@ -215,3 +215,73 @@ alias nvim-nvchad='NVIM_APPNAME="nvim-nvchad" nvim'
 alias nvim-astro='NVIM_APPNAME="nvim-astronvim" nvim'
 # rm -rf ~/.config/nvim-astronvim ~/.local/share/nvim-astronvim ~/.cache/nvim-astronvim ~/.local/state/nvim-astronvim
 
+###################################
+# DOTFILES UPDATE CHECK (Debounced 6h)
+###################################
+_check_dotfiles_update() {
+  local dotfiles_dir
+  if [[ "$os" == "Darwin" ]]; then
+    dotfiles_dir="$HOME/dotfiles"
+  else
+    dotfiles_dir="$HOME/projects/dotfiles"
+  fi
+
+  [[ -d "$dotfiles_dir/.git" ]] || return
+
+  zmodload zsh/datetime 2>/dev/null
+  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}"
+  local stamp="$cache_dir/dotfiles_last_check"
+  local now=$EPOCHSECONDS
+  local last_check=0
+
+  [[ -f "$stamp" ]] && read -r last_check < "$stamp"
+
+  # 1. Background fetch every 6 hours (21600 seconds)
+  if (( now - last_check > 21600 )); then
+    mkdir -p "$cache_dir"
+    echo "$now" > "$stamp"
+    ( git -C "$dotfiles_dir" fetch -q origin main 2>/dev/null ) &!
+  fi
+
+  # 2. Check ahead/behind counts against origin/main
+  local counts
+  counts=$(git -C "$dotfiles_dir" rev-list --left-right --count HEAD...origin/main 2>/dev/null)
+  [[ -z "$counts" ]] && return
+
+  local ahead behind
+  read -r ahead behind <<< "$counts"
+
+  if (( behind > 0 )); then
+    local conflict_reason=""
+
+    # Check A: Diverged commits conflict (ahead > 0 and behind > 0)
+    if (( ahead > 0 )); then
+      if ! git -C "$dotfiles_dir" merge-tree --write-tree HEAD origin/main >/dev/null 2>&1; then
+        conflict_reason="merge conflict with local commits"
+      fi
+    fi
+
+    # Check B: Uncommitted local changes colliding with incoming changes
+    if [[ -z "$conflict_reason" ]]; then
+      local -a dirty_files remote_changes conflicts
+      dirty_files=(${(f)"$(git -C "$dotfiles_dir" status --porcelain 2>/dev/null | sed -E 's/^...//')"})
+      if (( ${#dirty_files} > 0 )); then
+        remote_changes=(${(f)"$(git -C "$dotfiles_dir" diff --name-only HEAD..origin/main 2>/dev/null)"})
+        conflicts=(${dirty_files:*remote_changes})
+        if (( ${#conflicts} > 0 )); then
+          conflict_reason="conflict in: ${(j:, :)conflicts}"
+        fi
+      fi
+    fi
+
+    # 3. Print clean notification banner
+    if [[ -n "$conflict_reason" ]]; then
+      print -P "%F{red}⚠️  Dotfiles has %B$behind%b new commit(s) upstream (%F{yellow}${conflict_reason}%F{red})! Check: %F{cyan}cd
+      $dotfiles_dir && git status%f"
+    else
+      print -P "%F{yellow}📦 Dotfiles has %B$behind%b new commit(s) upstream. Run: %F{cyan}cd $dotfiles_dir && git pull%f"
+    fi
+  fi
+}
+
+_check_dotfiles_update
