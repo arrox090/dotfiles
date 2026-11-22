@@ -75,6 +75,8 @@ return {
 					return
 				end
 
+				vim.cmd("silent wa") -- Auto-save all modified files before debugging starts
+
 				local configs = dap.configurations[vim.bo.filetype] or {}
 				if #configs == 0 then
 					vim.notify("No DAP configurations for " .. vim.bo.filetype, vim.log.levels.WARN)
