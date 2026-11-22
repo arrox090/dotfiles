@@ -9,3 +9,5 @@ vim.keymap.set("n", "q", "<cmd>qa!<CR>")
 -- Scroll the window with J and K
 vim.keymap.set("n", "J", "<C-e>")
 vim.keymap.set("n", "K", "<C-y>")
+
+vim.opt.tabstop = 2
