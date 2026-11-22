@@ -7,25 +7,24 @@ os="$(uname -s)"
 # Added by Zinit's installer
 ###################################
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
+  print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+  command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+  command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" &&
+    print -P "%F{33} %F{34}Installation successful.%f%b" ||
+    print -P "%F{160} The clone has failed.%f%b"
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+((${+_comps})) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
+  zdharma-continuum/zinit-annex-as-monitor \
+  zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-rust
 
 ###################################
 # LOAD TOOLS
@@ -88,7 +87,7 @@ if [[ "$os" == "Darwin" ]]; then
     local name="${2:-Open Link}"
     local file="${name}.webloc"
 
-    cat > "/tmp/$file" <<EOF
+    cat >"/tmp/$file" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -128,12 +127,12 @@ alias ..='cd ..'
 # KEYBINDS
 ###################################
 fzf-history-widget() {
-  local orig_buffer=$BUFFER     # save what was typed
+  local orig_buffer=$BUFFER # save what was typed
   local orig_cursor=$CURSOR
 
   # run fzf on history
   local selected
-  selected=$(fc -rl 1 | awk '{$1=""; print substr($0,2)}' | awk '!seen[$0]++' | fzf --tac --query "$LBUFFER") 
+  selected=$(fc -rl 1 | awk '{$1=""; print substr($0,2)}' | awk '!seen[$0]++' | fzf --tac --query "$LBUFFER")
 
   if [[ -n $selected ]]; then
     BUFFER=$selected
@@ -154,7 +153,7 @@ function bind_keys_after_everything() {
   bindkey -r '^K'
   bindkey -r '^J'
   bindkey -r '^H'
-  bindkey -r '^R' 
+  bindkey -r '^R'
   bindkey '^R' fzf-history-widget
 }
 
@@ -190,21 +189,18 @@ HISTFILE=~/.zsh_history
 
 # Append to history file instead of overwriting
 setopt APPEND_HISTORY
-setopt INC_APPEND_HISTORY      # save after each command
-setopt SHARE_HISTORY           # share history across terminals
-setopt HIST_IGNORE_DUPS        # ignore consecutive duplicates
-setopt HIST_REDUCE_BLANKS      # strip the command string
-
+setopt INC_APPEND_HISTORY # save after each command
+setopt SHARE_HISTORY      # share history across terminals
+setopt HIST_IGNORE_DUPS   # ignore consecutive duplicates
+setopt HIST_REDUCE_BLANKS # strip the command string
 
 ###################################
 # STARSHIP DOUBLE WRAPPING AFTER SOURCING FIX
 ###################################
-if [[ -z ${functions[starship_zle-keymap-select-wrapped]+x} ]]; then
-  functions[starship_zle-keymap-select-wrapped]=$functions[zle-keymap-select]
+if [[ -z ${functions[starship_zle - keymap - select - wrapped]+x} ]]; then
+  functions[starship_zle - keymap - select - wrapped]=$functions[zle - keymap - select]
   zle -N zle-keymap-select starship_zle-keymap-select
 fi
-
-
 
 alias nvim-lazy='NVIM_APPNAME="nvim-lazyvim" nvim'
 # rm -rf ~/.config/nvim-lazyvim ~/.local/share/nvim-lazyvim ~/.cache/nvim-lazyvim ~/.local/state/nvim-lazyvim
@@ -215,9 +211,34 @@ alias nvim-nvchad='NVIM_APPNAME="nvim-nvchad" nvim'
 alias nvim-astro='NVIM_APPNAME="nvim-astronvim" nvim'
 # rm -rf ~/.config/nvim-astronvim ~/.local/share/nvim-astronvim ~/.cache/nvim-astronvim ~/.local/state/nvim-astronvim
 
-###################################
-# DOTFILES UPDATE CHECK (Debounced 6h)
-###################################
+###################################################################
+# DOTFILES UPDATE CHECK (Debounced 6h, Async Signal Notification)
+###################################################################
+
+# 1. Trap handler: safely prints update notification when background fetch finishes
+TRAPUSR1() {
+  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}"
+  local notify_file="$cache_dir/dotfiles_notify"
+
+  if [[ -f "$notify_file" ]]; then
+    local msg
+    read -r msg <"$notify_file"
+    rm -f "$notify_file"
+
+    if [[ -n "$msg" ]]; then
+      # If ZLE (line editor) is active, cleanly invalidate and redraw prompt below message:
+      if [[ -o zle ]] && zle; then
+        zle -I
+        print -P "$msg"
+        zle reset-prompt
+      else
+        print -P "$msg"
+      fi
+    fi
+  fi
+  return 0
+}
+
 _check_dotfiles_update() {
   local dotfiles_dir
   if [[ "$os" == "Darwin" ]]; then
@@ -234,53 +255,69 @@ _check_dotfiles_update() {
   local now=$EPOCHSECONDS
   local last_check=0
 
-  [[ -f "$stamp" ]] && read -r last_check < "$stamp"
+  [[ -f "$stamp" ]] && read -r last_check <"$stamp"
 
-  # 1. Background fetch every 6 hours (21600 seconds)
-  if (( now - last_check > 21600 )); then
-    mkdir -p "$cache_dir"
-    echo "$now" > "$stamp"
-    ( git -C "$dotfiles_dir" fetch -q origin main 2>/dev/null ) &!
-  fi
+  # Helper to inspect conflicts and format the banner message
+  _format_dotfiles_status() {
+    local counts
+    counts=$(git -C "$dotfiles_dir" rev-list --left-right --count HEAD...origin/main 2>/dev/null)
+    [[ -z "$counts" ]] && return
 
-  # 2. Check ahead/behind counts against origin/main
-  local counts
-  counts=$(git -C "$dotfiles_dir" rev-list --left-right --count HEAD...origin/main 2>/dev/null)
-  [[ -z "$counts" ]] && return
+    local ahead behind
+    read -r ahead behind <<<"$counts"
 
-  local ahead behind
-  read -r ahead behind <<< "$counts"
+    if ((behind > 0)); then
+      local conflict_reason=""
 
-  if (( behind > 0 )); then
-    local conflict_reason=""
-
-    # Check A: Diverged commits conflict (ahead > 0 and behind > 0)
-    if (( ahead > 0 )); then
-      if ! git -C "$dotfiles_dir" merge-tree --write-tree HEAD origin/main >/dev/null 2>&1; then
-        conflict_reason="merge conflict with local commits"
-      fi
-    fi
-
-    # Check B: Uncommitted local changes colliding with incoming changes
-    if [[ -z "$conflict_reason" ]]; then
-      local -a dirty_files remote_changes conflicts
-      dirty_files=(${(f)"$(git -C "$dotfiles_dir" status --porcelain 2>/dev/null | sed -E 's/^...//')"})
-      if (( ${#dirty_files} > 0 )); then
-        remote_changes=(${(f)"$(git -C "$dotfiles_dir" diff --name-only HEAD..origin/main 2>/dev/null)"})
-        conflicts=(${dirty_files:*remote_changes})
-        if (( ${#conflicts} > 0 )); then
-          conflict_reason="conflict in: ${(j:, :)conflicts}"
+      # Check A: Diverged commits conflict
+      if ((ahead > 0)); then
+        if ! git -C "$dotfiles_dir" merge-tree --write-tree HEAD origin/main >/dev/null 2>&1; then
+          conflict_reason="merge conflict with local commits"
         fi
       fi
-    fi
 
-    # 3. Print clean notification banner
-    if [[ -n "$conflict_reason" ]]; then
-      print -P "%F{red}⚠️  Dotfiles has %B$behind%b new commit(s) upstream (%F{yellow}${conflict_reason}%F{red})! Check: %F{cyan}cd
-      $dotfiles_dir && git status%f"
-    else
-      print -P "%F{yellow}📦 Dotfiles has %B$behind%b new commit(s) upstream. Run: %F{cyan}cd $dotfiles_dir && git pull%f"
+      # Check B: Local dirty files collision with upstream changes
+      if [[ -z "$conflict_reason" ]]; then
+        local -a dirty_files remote_changes conflicts
+        dirty_files=(${(f)"$(git -C "$dotfiles_dir" status --porcelain 2>/dev/null | sed -E 's/^...//')"})
+        if ((${#dirty_files} > 0)); then
+          remote_changes=(${(f)"$(git -C "$dotfiles_dir" diff --name-only HEAD..origin/main 2>/dev/null)"})
+          conflicts=(${dirty_files:*remote_changes})
+          if ((${#conflicts} > 0)); then
+            conflict_reason="conflict in: ${(j:, :)conflicts}"
+          fi
+        fi
+      fi
+
+      if [[ -n "$conflict_reason" ]]; then
+        print -P "%F{red}⚠️  Dotfiles has %B$behind%b new commit(s) upstream (%F{yellow}${conflict_reason}%F{red})! Check: %F{cyan}cd
+        $dotfiles_dir && git status%f"
+      else
+        print -P "%F{yellow}📦 Dotfiles has %B$behind%b new commit(s) upstream. Run: %F{cyan}cd $dotfiles_dir && git pull%f"
+      fi
     fi
+  }
+
+  # 2. Debounce logic
+  if ((now - last_check > 21600)); then
+    # Over 6 hours: spawn background fetch and signal shell when done
+    mkdir -p "$cache_dir"
+    echo "$now" >"$stamp"
+    local parent_pid=$$
+
+    (
+      git -C "$dotfiles_dir" fetch -q origin main 2>/dev/null
+      local status_msg
+      status_msg=$(_format_dotfiles_status)
+
+      if [[ -n "$status_msg" ]]; then
+        echo "$status_msg" >"$cache_dir/dotfiles_notify"
+        kill -USR1 "$parent_pid" 2>/dev/null
+      fi
+    ) &|
+  else
+    # Within 6 hours: check cached local git state immediately on shell startup
+    _format_dotfiles_status
   fi
 }
 
