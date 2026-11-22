@@ -27,6 +27,13 @@ return {
 							filetypes = { "markdown", "html", "css", "yaml" },
 						}))
 					end,
+
+					-- Configure shfmt for zsh
+					shfmt = function()
+						null_ls.register(null_ls.builtins.formatting.shfmt.with({
+							filetypes = { "bash", "sh", "zsh" },
+						}))
+					end,
 				},
 			})
 		end,
@@ -41,6 +48,9 @@ return {
 
 			null_ls.setup({
 				sources = {
+					-- Use built-in zsh -n linter:
+					null_ls.builtins.diagnostics.zsh,
+
 					-- Security & bug diagnostics on save (disable semgrep for python)
 					null_ls.builtins.diagnostics.semgrep.with({
 						method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
