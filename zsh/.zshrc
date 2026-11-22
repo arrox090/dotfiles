@@ -7,11 +7,11 @@ os="$(uname -s)"
 # Added by Zinit's installer
 ###################################
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-  print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-  command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-  command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" &&
-    print -P "%F{33} %F{34}Installation successful.%f%b" ||
-    print -P "%F{160} The clone has failed.%f%b"
+	print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+	command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+	command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" &&
+		print -P "%F{33} %F{34}Installation successful.%f%b" ||
+		print -P "%F{160} The clone has failed.%f%b"
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
@@ -21,10 +21,10 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-  zdharma-continuum/zinit-annex-as-monitor \
-  zdharma-continuum/zinit-annex-bin-gem-node \
-  zdharma-continuum/zinit-annex-patch-dl \
-  zdharma-continuum/zinit-annex-rust
+	zdharma-continuum/zinit-annex-as-monitor \
+	zdharma-continuum/zinit-annex-bin-gem-node \
+	zdharma-continuum/zinit-annex-patch-dl \
+	zdharma-continuum/zinit-annex-rust
 
 ###################################
 # LOAD TOOLS
@@ -53,7 +53,7 @@ eval "$(zoxide init zsh)"
 # MAKE fzf tab work for tmuxifier completions
 ###################################
 _tmuxifier_compat() {
-  compadd -- $(tmuxifier commands)
+	compadd -- $(tmuxifier commands)
 }
 compdef _tmuxifier_compat tmuxifier
 
@@ -66,28 +66,28 @@ alias sz='source ~/.zshrc && echo ~/.zshrc sourced'
 alias svim='sudo -E nvim'
 
 if [[ "$os" == "Darwin" ]]; then
-  alias wattage="ioreg -r -n AppleSmartBattery | awk '/\"Amperage\" =/{a=\$3} /\"Voltage\" =/{v=\$3} END {print (a*v)/1000000 \" W\"}'"
-  alias lsend="localsend-cli send"
-  alias lsa="tmux -L services attach -t localsend"
-  alias lsk="tmux -L services kill-session -t localsend"
-  alias lsr="tmux -L services kill-session -t localsend 2>/dev/null; tmux -L services new-session -d -s localsend 'localsend-cli --port 53318'"
+	alias wattage="ioreg -r -n AppleSmartBattery | awk '/\"Amperage\" =/{a=\$3} /\"Voltage\" =/{v=\$3} END {print (a*v)/1000000 \" W\"}'"
+	alias lsend="localsend-cli send"
+	alias lsa="tmux -L services attach -t localsend"
+	alias lsk="tmux -L services kill-session -t localsend"
+	alias lsr="tmux -L services kill-session -t localsend 2>/dev/null; tmux -L services new-session -d -s localsend 'localsend-cli --port 53318'"
 
-  jhome() {
-    export JAVA_HOME=$(/usr/libexec/java_home -v "$1")
-    echo $(/usr/libexec/java_home -v "$1")
-  }
+	jhome() {
+		export JAVA_HOME=$(/usr/libexec/java_home -v "$1")
+		echo $(/usr/libexec/java_home -v "$1")
+	}
 
-  shareurl() {
-    if [[ -z "$1" ]]; then
-      echo "Usage: shareurl <URL> [filename]"
-      return 1
-    fi
+	shareurl() {
+		if [[ -z "$1" ]]; then
+			echo "Usage: shareurl <URL> [filename]"
+			return 1
+		fi
 
-    local url="$1"
-    local name="${2:-Open Link}"
-    local file="${name}.webloc"
+		local url="$1"
+		local name="${2:-Open Link}"
+		local file="${name}.webloc"
 
-    cat >"/tmp/$file" <<EOF
+		cat >"/tmp/$file" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -99,8 +99,8 @@ if [[ "$os" == "Darwin" ]]; then
 </plist>
 EOF
 
-    echo "Created: /tmp/$file"
-  }
+		echo "Created: /tmp/$file"
+	}
 
 fi
 
@@ -112,13 +112,13 @@ alias ls='eza -l --icons=always'
 
 alias cd="zd"
 zd() {
-  if [ $# -eq 0 ]; then
-    builtin cd ~ && return
-  elif [ -d "$1" ]; then
-    builtin cd "$1"
-  else
-    z "$@" && printf "\U000F17A9 " && pwd || echo "Error: Directory not found"
-  fi
+	if [ $# -eq 0 ]; then
+		builtin cd ~ && return
+	elif [ -d "$1" ]; then
+		builtin cd "$1"
+	else
+		z "$@" && printf "\U000F17A9 " && pwd || echo "Error: Directory not found"
+	fi
 }
 
 alias ..='cd ..'
@@ -127,34 +127,34 @@ alias ..='cd ..'
 # KEYBINDS
 ###################################
 fzf-history-widget() {
-  local orig_buffer=$BUFFER # save what was typed
-  local orig_cursor=$CURSOR
+	local orig_buffer=$BUFFER # save what was typed
+	local orig_cursor=$CURSOR
 
-  # run fzf on history
-  local selected
-  selected=$(fc -rl 1 | awk '{$1=""; print substr($0,2)}' | awk '!seen[$0]++' | fzf --tac --query "$LBUFFER")
+	# run fzf on history
+	local selected
+	selected=$(fc -rl 1 | awk '{$1=""; print substr($0,2)}' | awk '!seen[$0]++' | fzf --tac --query "$LBUFFER")
 
-  if [[ -n $selected ]]; then
-    BUFFER=$selected
-    CURSOR=${#BUFFER}
-  else
-    # restore original if nothing selected
-    BUFFER=$orig_buffer
-    CURSOR=$orig_cursor
-  fi
+	if [[ -n $selected ]]; then
+		BUFFER=$selected
+		CURSOR=${#BUFFER}
+	else
+		# restore original if nothing selected
+		BUFFER=$orig_buffer
+		CURSOR=$orig_cursor
+	fi
 
-  zle reset-prompt
+	zle reset-prompt
 }
 zle -N fzf-history-widget
 
 function bind_keys_after_everything() {
-  bindkey -v
-  bindkey -r '^L'
-  bindkey -r '^K'
-  bindkey -r '^J'
-  bindkey -r '^H'
-  bindkey -r '^R'
-  bindkey '^R' fzf-history-widget
+	bindkey -v
+	bindkey -r '^L'
+	bindkey -r '^K'
+	bindkey -r '^J'
+	bindkey -r '^H'
+	bindkey -r '^R'
+	bindkey '^R' fzf-history-widget
 }
 
 add-zsh-hook precmd bind_keys_after_everything
@@ -171,13 +171,13 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # COPY TOOL FOR COPYING WHEN IN SSH (osc52)
 ###################################
 if [[ "$os" == "Linux" ]]; then
-  rclip() {
-    local text
-    text=$(cat)
-    local b64
-    b64=$(printf '%s' "$text" | base64 | tr -d '\n')
-    printf '\033]52;c;%s\a' "$b64"
-  }
+	rclip() {
+		local text
+		text=$(cat)
+		local b64
+		b64=$(printf '%s' "$text" | base64 | tr -d '\n')
+		printf '\033]52;c;%s\a' "$b64"
+	}
 fi
 
 ###################################
@@ -197,9 +197,9 @@ setopt HIST_REDUCE_BLANKS # strip the command string
 ###################################
 # STARSHIP DOUBLE WRAPPING AFTER SOURCING FIX
 ###################################
-if [[ -z ${functions[starship_zle - keymap - select - wrapped]+x} ]]; then
-  functions[starship_zle - keymap - select - wrapped]=$functions[zle - keymap - select]
-  zle -N zle-keymap-select starship_zle-keymap-select
+if [[ -z ${functions['starship_zle-keymap-select-wrapped']+x} ]]; then
+	functions['starship_zle-keymap-select-wrapped']=$functions['zle-keymap-select']
+	zle -N zle-keymap-select starship_zle-keymap-select
 fi
 
 alias nvim-lazy='NVIM_APPNAME="nvim-lazyvim" nvim'
@@ -212,113 +212,139 @@ alias nvim-astro='NVIM_APPNAME="nvim-astronvim" nvim'
 # rm -rf ~/.config/nvim-astronvim ~/.local/share/nvim-astronvim ~/.cache/nvim-astronvim ~/.local/state/nvim-astronvim
 
 ###################################################################
-# DOTFILES UPDATE CHECK (Debounced 6h, Async Signal Notification)
+# DOTFILES UPDATE CHECK (Debounced 6h, Fully Async & Signal-Driven)
 ###################################################################
 
-# 1. Trap handler: safely prints update notification when background fetch finishes
+# Signal handler: asynchronously draws notification above the active prompt
 TRAPUSR1() {
-  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}"
-  local notify_file="$cache_dir/dotfiles_notify"
+	local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}"
+	local status_file="$cache_dir/dotfiles_status"
+	local notify_file="$cache_dir/dotfiles_notify"
 
-  if [[ -f "$notify_file" ]]; then
-    local msg
-    read -r msg <"$notify_file"
-    rm -f "$notify_file"
+	if [[ -f "$notify_file" && -f "$status_file" ]]; then
+		rm -f "$notify_file"
+		local target_sha msg
+		{
+			read -r target_sha
+			read -r msg
+		} <"$status_file"
 
-    if [[ -n "$msg" ]]; then
-      # If ZLE (line editor) is active, cleanly invalidate and redraw prompt below message:
-      if [[ -o zle ]] && zle; then
-        zle -I
-        print -P "$msg"
-        zle reset-prompt
-      else
-        print -P "$msg"
-      fi
-    fi
-  fi
-  return 0
+		if [[ -n "$msg" && -z "$_DOTFILES_NOTIFIED" ]]; then
+			typeset -g _DOTFILES_NOTIFIED=1
+			if [[ -o zle ]] && zle; then
+				zle -I
+				print -P "$msg"
+				zle reset-prompt
+			else
+				print -P "$msg"
+			fi
+		fi
+	fi
+	return 0
 }
 
 _check_dotfiles_update() {
-  local dotfiles_dir
-  if [[ "$os" == "Darwin" ]]; then
-    dotfiles_dir="$HOME/dotfiles"
-  else
-    dotfiles_dir="$HOME/projects/dotfiles"
-  fi
+	local dotfiles_dir
+	if [[ "$os" == "Darwin" ]]; then
+		dotfiles_dir="$HOME/dotfiles"
+	else
+		dotfiles_dir="$HOME/projects/dotfiles"
+	fi
 
-  [[ -d "$dotfiles_dir/.git" ]] || return
+	[[ -d "$dotfiles_dir/.git" ]] || return
 
-  zmodload zsh/datetime 2>/dev/null
-  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}"
-  local stamp="$cache_dir/dotfiles_last_check"
-  local now=$EPOCHSECONDS
-  local last_check=0
+	local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}"
+	local status_file="$cache_dir/dotfiles_status"
+	local stamp_file="$cache_dir/dotfiles_last_check"
+	local notify_file="$cache_dir/dotfiles_notify"
 
-  [[ -f "$stamp" ]] && read -r last_check <"$stamp"
+	# 1. Quick cache display (instant, 0ms latency on startup if already known)
+	if [[ -f "$status_file" ]]; then
+		local target_sha msg
+		{
+			read -r target_sha
+			read -r msg
+		} <"$status_file"
+		local current_sha
+		current_sha=$(git -C "$dotfiles_dir" rev-parse HEAD 2>/dev/null)
 
-  # Helper to inspect conflicts and format the banner message
-  _format_dotfiles_status() {
-    local counts
-    counts=$(git -C "$dotfiles_dir" rev-list --left-right --count HEAD...origin/main 2>/dev/null)
-    [[ -z "$counts" ]] && return
+		# Auto-cleanup cache if local repository is already up to date with remote
+		if [[ -n "$target_sha" && "$current_sha" == "$target_sha" ]]; then
+			rm -f "$status_file" "$notify_file"
+			unset _DOTFILES_NOTIFIED
+		elif [[ -n "$msg" ]]; then
+			print -P "$msg"
+			typeset -g _DOTFILES_NOTIFIED=1
+		fi
+	fi
 
-    local ahead behind
-    read -r ahead behind <<<"$counts"
+	# 2. Debounce logic (every 6 hours = 21600 seconds)
+	zmodload zsh/datetime 2>/dev/null
+	local now=$EPOCHSECONDS
+	local last_check=0
+	[[ -f "$stamp_file" ]] && read -r last_check <"$stamp_file"
 
-    if ((behind > 0)); then
-      local conflict_reason=""
+	if ((now - last_check > 21600)); then
+		print -r -- "$now" >"$stamp_file"
+		local parent_pid=$$
 
-      # Check A: Diverged commits conflict
-      if ((ahead > 0)); then
-        if ! git -C "$dotfiles_dir" merge-tree --write-tree HEAD origin/main >/dev/null 2>&1; then
-          conflict_reason="merge conflict with local commits"
-        fi
-      fi
+		# Background fetch fully detached to prevent any SSH/TTY delay
+		(
+			git -C "$dotfiles_dir" fetch --quiet origin main 2>/dev/null || exit 0
 
-      # Check B: Local dirty files collision with upstream changes
-      if [[ -z "$conflict_reason" ]]; then
-        local -a dirty_files remote_changes conflicts
-        dirty_files=(${(f)"$(git -C "$dotfiles_dir" status --porcelain 2>/dev/null | sed -E 's/^...//')"})
-        if ((${#dirty_files} > 0)); then
-          remote_changes=(${(f)"$(git -C "$dotfiles_dir" diff --name-only HEAD..origin/main 2>/dev/null)"})
-          conflicts=(${dirty_files:*remote_changes})
-          if ((${#conflicts} > 0)); then
-            conflict_reason="conflict in: ${(j:, :)conflicts}"
-          fi
-        fi
-      fi
+			local counts
+			counts=$(git -C "$dotfiles_dir" rev-list --left-right --count HEAD...origin/main 2>/dev/null)
+			[[ -z "$counts" ]] && exit 0
 
-      if [[ -n "$conflict_reason" ]]; then
-        print -P "%F{red}⚠️  Dotfiles has %B$behind%b new commit(s) upstream (%F{yellow}${conflict_reason}%F{red})! Check: %F{cyan}cd
-        $dotfiles_dir && git status%f"
-      else
-        print -P "%F{yellow}📦 Dotfiles has %B$behind%b new commit(s) upstream. Run: %F{cyan}cd $dotfiles_dir && git pull%f"
-      fi
-    fi
-  }
+			local ahead behind
+			read -r ahead behind <<<"$counts"
 
-  # 2. Debounce logic
-  if ((now - last_check > 21600)); then
-    # Over 6 hours: spawn background fetch and signal shell when done
-    mkdir -p "$cache_dir"
-    echo "$now" >"$stamp"
-    local parent_pid=$$
+			if ((behind > 0)); then
+				local remote_sha
+				remote_sha=$(git -C "$dotfiles_dir" rev-parse origin/main 2>/dev/null)
 
-    (
-      git -C "$dotfiles_dir" fetch -q origin main 2>/dev/null
-      local status_msg
-      status_msg=$(_format_dotfiles_status)
+				local conflict_reason=""
+				if ((ahead > 0)); then
+					if ! git -C "$dotfiles_dir" merge-tree --write-tree HEAD origin/main >/dev/null 2>&1; then
+						conflict_reason="merge conflict with local commits"
+					fi
+				fi
 
-      if [[ -n "$status_msg" ]]; then
-        echo "$status_msg" >"$cache_dir/dotfiles_notify"
-        kill -USR1 "$parent_pid" 2>/dev/null
-      fi
-    ) &|
-  else
-    # Within 6 hours: check cached local git state immediately on shell startup
-    _format_dotfiles_status
-  fi
+				if [[ -z "$conflict_reason" ]]; then
+					local -a dirty_files remote_changes conflicts
+					dirty_files=(${(f)"$(git -C "$dotfiles_dir" status --porcelain 2>/dev/null | sed -E 's/^...//')"})
+					if ((${#dirty_files} > 0)); then
+						remote_changes=(${(f)"$(git -C "$dotfiles_dir" diff --name-only HEAD..origin/main 2>/dev/null)"})
+						conflicts=(${dirty_files:*remote_changes})
+						if ((${#conflicts} > 0)); then
+							conflict_reason="conflict in: ${(j:, :)conflicts}"
+						fi
+					fi
+				fi
+
+				local banner
+				if [[ -n "$conflict_reason" ]]; then
+					banner="%F{red}⚠️  Dotfiles has %B$behind%b new commit(s) upstream (%F{yellow}${conflict_reason}%F{red})! Check: %F{cyan}cd $dotfiles_dir && git status%f"
+				else
+					banner="%F{yellow}📦 Dotfiles has %B$behind%b new commit(s) upstream. Run: %F{cyan}cd $dotfiles_dir && git pull%f"
+				fi
+
+				# Write target_sha and banner to cache
+				{
+					print -r -- "$remote_sha"
+					print -r -- "$banner"
+				} >"$status_file"
+
+				touch "$notify_file"
+
+				# Signal the active interactive prompt to redraw with the banner
+				kill -USR1 "$parent_pid" 2>/dev/null
+			else
+				rm -f "$status_file" "$notify_file"
+				unset _DOTFILES_NOTIFIED
+			fi
+		) </dev/null >/dev/null 2>&1 &|
+	fi
 }
 
 _check_dotfiles_update
