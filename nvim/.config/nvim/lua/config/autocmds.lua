@@ -3,7 +3,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(args)
 		-- The 'bufnr' ensures it only formats the file you are actively saving
-		vim.lsp.buf.format({ async = false, bufnr = args.buf })
+		vim.lsp.buf.format({
+			async = false,
+			bufnr = args.buf,
+			filter = function(client)
+				-- Ignore lua_ls so stylua handles Lua files exclusively
+				return client.name ~= "lua_ls"
+			end,
+		})
 	end,
 })
 

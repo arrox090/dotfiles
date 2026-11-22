@@ -59,7 +59,13 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>nf", vim.lsp.buf.format, { desc = "Format current buffer" })
+			vim.keymap.set("n", "<leader>nf", function()
+				vim.lsp.buf.format({
+					filter = function(client)
+						return client.name ~= "lua_ls"
+					end,
+				})
+			end, { desc = "Format current buffer" })
 		end,
 	},
 }
