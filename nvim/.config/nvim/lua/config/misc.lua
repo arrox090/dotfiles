@@ -39,7 +39,8 @@ local function execute_cmd(cmd, mode)
 	vim.cmd("silent wa") -- Save all buffers before running
 
 	if vim.env.TMUX then
-		vim.fn.VimuxRunCommand(cmd)
+		-- Open or create the runner split
+		vim.fn.VimuxOpenRunner()
 
 		if mode == "interactive" then
 			-- Focus the runner pane and zoom it fullscreen
@@ -57,6 +58,8 @@ local function execute_cmd(cmd, mode)
 				vim.fn.system("tmux resize-pane -Z")
 			end
 		end
+		-- Run the command
+		vim.fn.VimuxRunCommand(cmd)
 	else
 		vim.cmd("botright 15split | term " .. cmd)
 	end
