@@ -63,6 +63,28 @@ local function build_current_file_cmd()
 	end
 
 	local current_file = vim.fn.expand("%:p")
+
+	-- For Python: find .venv or venv upwards, activate it and run from project root:
+	if filetype == "python" then
+		local root = find_project_root({ ".venv", "venv" })
+
+		if root then
+			local activate = root .. "/.venv/bin/activate"
+			if not vim.uv.fs_stat(activate) then
+				activate = root .. "/venv/bin/activate"
+			end
+
+			if vim.uv.fs_stat(activate) then
+				return "cd "
+					.. vim.fn.fnameescape(root)
+					.. " && source "
+					.. vim.fn.fnameescape(activate)
+					.. " && python3 "
+					.. vim.fn.fnameescape(current_file)
+			end
+		end
+	end
+
 	return cmd_prefix .. " " .. vim.fn.fnameescape(current_file)
 end
 
