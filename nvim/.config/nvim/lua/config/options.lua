@@ -65,3 +65,7 @@ vim.opt.foldlevel = 99
 
 -- make vimux use a tmux pane with 15 lines height
 vim.g.VimuxHeight = "15"
+
+-- Python indentation (single shiftwidth on open brackets, so it doesn't put the cursor like 2x further than it should)
+vim.g.pyindent_open_paren = "shiftwidth()"
+vim.g.pyindent_continue = "shiftwidth()"
