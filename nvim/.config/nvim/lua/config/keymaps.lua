@@ -48,8 +48,8 @@ keymap("n", "]e", "<cmd>m .+1<CR>==", { desc = "Move line down" })
 keymap("n", "[e", "<cmd>m .-2<CR>==", { desc = "Move line up" })
 
 -- Move highlighted block in Visual mode:
-keymap("v", "]e", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-keymap("v", "[e", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+keymap("v", "]e", "<esc><cmd>'<,'>m '>+1<CR>gv=gv", { desc = "Move selection down" })
+keymap("v", "[e", "<esc><cmd>'<,'>m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 -- Map U to redo, so its u=undo, U=redo
 keymap("n", "U", "<C-r>", { desc = "Redo" })
@@ -57,3 +57,6 @@ keymap("n", "U", "<C-r>", { desc = "Redo" })
 -- Increment and decrement a number with + and -
 vim.keymap.set({ "n", "v" }, "+", "<C-a>", { desc = "Increment number" })
 vim.keymap.set({ "n", "v" }, "-", "<C-x>", { desc = "Decrement number" })
+
+-- Handle Option+Backspace (sent by Karabiner Option+Ctrl+O) in Insert mode:
+vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "Delete word backwards" })
