@@ -21,7 +21,7 @@ function source:get_keyword_pattern()
 	return [=[[^\/\\:\*\?<>'"|[:blank:]]*]=]
 end
 
--- Checks if Tree-sitter AST places cursor inside a function call argument, string, or import
+-- Checks if Tree-sitter AST places cursor inside an import, include, or require statement
 local function is_treesitter_path_context()
 	local ok, node = pcall(vim.treesitter.get_node)
 	if not ok or not node then
@@ -29,24 +29,8 @@ local function is_treesitter_path_context()
 	end
 
 	local curr = node
-	local in_string = false
 	while curr do
 		local t = curr:type()
-		if t:match("string") or t:match("literal") or t:match("fragment") then
-			in_string = true
-		end
-		if
-			in_string
-			and (
-				t == "call"
-				or t == "call_expression"
-				or t == "function_call"
-				or t == "argument_list"
-				or t == "arguments"
-			)
-		then
-			return true
-		end
 		if t:match("import") or t:match("include") or t:match("require") then
 			return true
 		end
@@ -58,28 +42,28 @@ end
 -- Checks if text before quote is a known path-accepting function or variable
 local function is_path_context_before_quote(line_before_quote)
 	local low = line_before_quote:lower()
-	-- Common path functions
+	-- Common path functions (allowing optional whitespace or f/r/b string prefixes)
 	if
-		low:match("[%w_]*open%s*%($")
-		or low:match("[%w_]*path%s*%($")
-		or low:match("[%w_]*read[%w_]*%s*%($")
-		or low:match("[%w_]*load[%w_]*%s*%($")
-		or low:match("[%w_]*save[%w_]*%s*%($")
-		or low:match("[%w_]*render[%w_]*%s*%($")
-		or low:match("[%w_]*include[%w_]*%s*%($")
-		or low:match("require%s*%($")
-		or low:match("import%s*%($")
+		low:match("[%w_]*open%s*%([%sfrb]*$")
+		or low:match("[%w_]*path%s*%([%sfrb]*$")
+		or low:match("[%w_]*read[%w_]*%s*%([%sfrb]*$")
+		or low:match("[%w_]*load[%w_]*%s*%([%sfrb]*$")
+		or low:match("[%w_]*save[%w_]*%s*%([%sfrb]*$")
+		or low:match("[%w_]*render[%w_]*%s*%([%sfrb]*$")
+		or low:match("[%w_]*include[%w_]*%s*%([%sfrb]*$")
+		or low:match("require%s*%([%sfrb]*$")
+		or low:match("import%s*%([%sfrb]*$")
 	then
 		return true
 	end
 
 	-- Common path variable assignments
 	if
-		low:match("[%w_]*file[%w_]*%s*=%s*$")
-		or low:match("[%w_]*path[%w_]*%s*=%s*$")
-		or low:match("[%w_]*dir[%w_]*%s*=%s*$")
-		or low:match("[%w_]*template[%w_]*%s*=%s*$")
-		or low:match("[%w_]*image[%w_]*%s*=%s*$")
+		low:match("[%w_]*file[%w_]*%s*=%s*[%sfrb]*$")
+		or low:match("[%w_]*path[%w_]*%s*=%s*[%sfrb]*$")
+		or low:match("[%w_]*dir[%w_]*%s*=%s*[%sfrb]*$")
+		or low:match("[%w_]*template[%w_]*%s*=%s*[%sfrb]*$")
+		or low:match("[%w_]*image[%w_]*%s*=%s*[%sfrb]*$")
 	then
 		return true
 	end
@@ -141,31 +125,40 @@ function source:complete(params, callback)
 	else
 		-- 2. Context triggers without '/' yet:
 		local line_before_quote, quote_char, inside_quote = before:match("^(.-)([\"'])([^\"']*)$")
-		local after_eq = before:match("=%s*([^%s\"']*)$")
-		local after_colon = before:match(":%s*([^%s\"']*)$")
-		local after_hyphen = before:match("%-%s*([^%s\"']*)$")
 
-		if
-			quote_char
-			and (is_path_context_before_quote(line_before_quote .. quote_char) or inside_quote:sub(1, 1) == ".")
-		then
+		if quote_char and is_path_context_before_quote(line_before_quote) then
 			raw_dir = "./"
 			file_prefix = inside_quote
-		elseif after_eq then
-			raw_dir = "./"
-			file_prefix = after_eq
-		elseif after_colon then
-			raw_dir = "./"
-			file_prefix = after_colon
-		elseif after_hyphen then
-			raw_dir = "./"
-			file_prefix = after_hyphen
-		elseif before:match("%.%.$") or before:match("%.$") then
+		elseif before:match("%.%.$") then
 			raw_dir = "./"
 			file_prefix = before:match("(%.+)$")
 		else
-			-- Do not trigger on random words or start of line without './'
-			return callback({ items = {}, isIncomplete = false })
+			-- Only trigger bare key: or key= in config files (docker-compose, .env, yaml, toml):
+			local ft = vim.bo.filetype
+			local fname = vim.fn.expand("%:t")
+			local is_config = (
+				ft == "yaml"
+				or ft == "dockerfile"
+				or ft == "toml"
+				or fname:match("^%.env")
+				or fname:match("docker%-compose")
+			)
+
+			if is_config then
+				local after_eq = before:match("=%s*([^%s\"']*)$")
+				local after_colon = before:match(":%s*([^%s\"']*)$")
+				local after_hyphen = before:match("%-%s*([^%s\"']*)$")
+				local bare_val = after_eq or after_colon or after_hyphen
+				if bare_val and #bare_val > 0 then
+					raw_dir = "./"
+					file_prefix = bare_val
+				else
+					return callback({ items = {}, isIncomplete = false })
+				end
+			else
+				-- Do not trigger on colons/equals in programming languages (e.g. xxx: dow, x = y, a - b)
+				return callback({ items = {}, isIncomplete = false })
+			end
 		end
 	end
 
@@ -249,8 +242,8 @@ function source:complete(params, callback)
 		end
 	end
 
-	-- Return all items in directory so cmp can filter and backspace smoothly
-	callback({ items = items, isIncomplete = false })
+	-- Invalidate cache on backspace so returning to empty quotes closes menu:
+	callback({ items = items, isIncomplete = true })
 end
 
 -- Dynamic Markdown file content & folder preview in CMP documentation popup
@@ -380,4 +373,5 @@ function M.setup(cmp_instance)
 	cmp_engine.register_source("smart_path", source)
 end
 
+M.is_path_context = is_path_context_before_quote
 return M
