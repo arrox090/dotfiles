@@ -1,7 +1,6 @@
 return {
 	{
 		"hrsh7th/cmp-nvim-lsp",
-		"FelipeLema/cmp-async-path",
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -16,27 +15,77 @@ return {
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			require("luasnip.loaders.from_vscode").lazy_load()
+			require("custom.smart_path").setup(cmp)
+
+			-- Distinct highlight colors for Folder vs File in completion menu:
+			vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = "#89b4fa", bold = true })
+			vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = "#94e2d5" })
 
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+						require("luasnip").lsp_expand(args.body)
 					end,
 				},
 				window = {
-					completion = cmp.config.window.bordered(),
+					completion = cmp.config.window.bordered({
+						max_height = 10,
+					}),
 					documentation = cmp.config.window.bordered(),
 				},
+				matching = {
+					disallow_fuzzy_matching = false,
+					disallow_fullfuzzy_matching = false,
+					disallow_partial_fuzzy_matching = false, -- default true (first letter must match)
+					disallow_partial_matching = false,
+					disallow_prefix_unmatching = false,
+					disallow_symbol_nonprefix_matching = false, -- default true (ex. typing flag wont recommend --flag)
+				},
+
 				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-u>"] = cmp.mapping.scroll_docs(-4),
+					["<C-d>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = false }), -- select = false -> only confirm explicitly selected items.
 
-					-- Jump to next snippet field (or type normal Tab)
+					-- Re-open completion dynamically on Backspace if typing a word:
+					["<BS>"] = cmp.mapping(function(fallback)
+						fallback()
+						vim.schedule(function()
+							local col = vim.api.nvim_win_get_cursor(0)[2]
+							local before = vim.api.nvim_get_current_line():sub(1, col)
+							if before:match("[%w_%.%/%'%\"]$") then
+								-- Without this it'll lag when holding backspace
+								if not cmp.visible() then
+									cmp.complete()
+								end
+							else
+								if cmp.visible() then
+									cmp.abort()
+								end
+							end
+						end)
+					end, { "i", "s" }),
+
+					-- Auto-trigger completion on dot, because sometimes it bugged and did not show anything
+					["."] = cmp.mapping(function(fallback)
+						fallback()
+						vim.schedule(function()
+							local col = vim.api.nvim_win_get_cursor(0)[2]
+							local before = vim.api.nvim_get_current_line():sub(1, col)
+							-- Only if its before variable, parenthesis or quotes and not already open
+							if before:match("[%w_%)%]%'\"]%.$") and not cmp.visible() then
+								cmp.complete()
+							end
+						end)
+					end, { "i", "s" }),
+
+					-- Accept 1st/selected completion with Tab, or jump snippet, or normal Tab:
 					["<Tab>"] = cmp.mapping(function(fallback)
-						if luasnip.jumpable(1) then
+						if cmp.visible() then
+							cmp.confirm({ select = true })
+						elseif luasnip.jumpable(1) then
 							luasnip.jump(1)
 						else
 							fallback()
@@ -84,31 +133,38 @@ return {
 								return false
 							end
 
-							-- 3. Hide internal _variables unless you actually type an underscore
-							if label:sub(1, 1) == "_" and ctx.cursor_before_line:sub(-1) ~= "_" then
+							-- Hide internal _variables unless you actually type an underscore
+							local current_word = ctx.cursor_before_line:match("[%w_]+$") or ""
+							if label:sub(1, 1) == "_" and not current_word:match("^_") then
 								return false
 							end
 
 							return true
 						end,
 					},
-					{ name = "luasnip", priority = 750 },
 					{
-						name = "async_path",
-						priority = 800,
-						keyword_length = 0,
-						option = { trailing_slash = true },
+						name = "luasnip",
+						priority = 750,
+
+						-- Don't show snippets when inside a string
+						entry_filter = function()
+							local context = require("cmp.config.context")
+							return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
+						end,
 					},
-				}, {
-					{ name = "buffer", priority = 500 },
+					{
+						name = "smart_path",
+						priority = 800,
+					},
 				}),
 
 				sorting = {
+					priority_weight = 2,
 					comparators = {
+						cmp.config.compare.offset,
 						cmp.config.compare.exact,
-						cmp.config.compare.locality, -- 1. Locals pushed to top
+						cmp.config.compare.score,
 
-						-- 2. THE PYCHARM RANKER: Sort by Type (Variables > Methods > Classes > Snippets)
 						function(entry1, entry2)
 							local types = require("cmp.types")
 							local kind_rank = {
@@ -122,18 +178,16 @@ return {
 								[types.lsp.CompletionItemKind.Snippet] = 8,
 								[types.lsp.CompletionItemKind.Text] = 9,
 							}
-							-- Get the rank, default to 100 if it's some weird unknown type
 							local rank1 = kind_rank[entry1:get_kind()] or 100
 							local rank2 = kind_rank[entry2:get_kind()] or 100
 
 							if rank1 ~= rank2 then
-								return rank1 < rank2 -- Smaller number means higher up on the list
+								return rank1 < rank2
 							end
 						end,
 
-						-- 3. Fallbacks if two items are the same type (e.g., two Variables)
 						cmp.config.compare.recently_used,
-						cmp.config.compare.score,
+						cmp.config.compare.locality,
 						cmp.config.compare.sort_text,
 						cmp.config.compare.length,
 						cmp.config.compare.order,

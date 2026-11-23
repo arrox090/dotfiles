@@ -91,26 +91,28 @@ local function build_current_file_cmd()
 		local root = find_project_root({ ".venv", "venv" })
 
 		if root then
-			local activate = root .. "/.venv/bin/activate"
-			if not vim.uv.fs_stat(activate) then
-				activate = root .. "/venv/bin/activate"
-			end
+			local venv_dir = vim.uv.fs_stat(root .. "/.venv/bin/activate") and ".venv" or "venv"
+			local activate_rel = venv_dir .. "/bin/activate"
 
-			if vim.uv.fs_stat(activate) then
+			if vim.uv.fs_stat(root .. "/" .. activate_rel) then
+				local rel_file = current_file:sub(#root + 2)
 				return "cd "
 					.. vim.fn.fnameescape(root)
 					.. " && source "
-					.. vim.fn.fnameescape(activate)
+					.. activate_rel
 					.. " && python3 "
-					.. vim.fn.fnameescape(current_file)
+					.. vim.fn.fnameescape(rel_file)
 			end
 		end
 	end
 
-	return cmd_prefix .. " " .. vim.fn.fnameescape(current_file)
+	local file_dir = vim.fn.expand("%:p:h")
+	local file_name = vim.fn.expand("%:t")
+
+	return "cd " .. vim.fn.fnameescape(file_dir) .. " && " .. cmd_prefix .. " " .. vim.fn.fnameescape(file_name)
 end
 
--- Run in split mode (<leader>rt) -> Un-zooms editor, split visible below
+-- Run in split mode (<leader>rf) -> Un-zooms editor, split visible below
 local function run_split()
 	local cmd = build_current_file_cmd()
 	if cmd then
@@ -140,7 +142,7 @@ local function run_headless()
 	end
 end
 
--- Run Last (<leader>rf) -> PyCharm style: runs last target with remembered mode
+-- Run Last (<leader>rl) -> PyCharm style: runs last target with remembered mode
 local function run_last()
 	if not last_run_cmd then
 		last_run_cmd = build_current_file_cmd()

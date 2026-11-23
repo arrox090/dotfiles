@@ -51,7 +51,7 @@ return {
 					},
 
 					before_init = function(_, config)
-						local find_project_root = require("config.misc").find_project_root
+						local find_project_root = require("custom.runner").find_project_root
 						local root = find_project_root and find_project_root({ ".venv", "venv" })
 
 						if root then
