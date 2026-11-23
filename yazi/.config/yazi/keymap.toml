@@ -36,6 +36,11 @@ run  = "cd '~/Library/Application Support/PrismLauncher/instances'"
 desc = "Go to prism mc instances"
 
 [[mgr.prepend_keymap]]
+on   = [ "g", "s" ]
+run  = "cd '~/Documents/photos/screenshots'"
+desc = "Go to screenshots dir"
+
+[[mgr.prepend_keymap]]
 on = [ "T" ]
 run = 'shell -- open "%h"'
 desc = "Open HTML in browser"
