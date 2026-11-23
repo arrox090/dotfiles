@@ -49,23 +49,39 @@ return {
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = false }), -- select = false -> only confirm explicitly selected items.
 
-					-- Re-open completion dynamically on Backspace if typing a word:
+					-- Re-open/refresh completion on Backspace with debounce (no lag when holding BS):
 					["<BS>"] = cmp.mapping(function(fallback)
 						fallback()
-						vim.schedule(function()
+						if _G._cmp_bs_timer then
+							_G._cmp_bs_timer:stop()
+						end
+						_G._cmp_bs_timer = vim.defer_fn(function()
 							local col = vim.api.nvim_win_get_cursor(0)[2]
 							local before = vim.api.nvim_get_current_line():sub(1, col)
-							if before:match("[%w_%.%/%'%\"]$") then
-								-- Without this it'll lag when holding backspace
-								if not cmp.visible() then
-									cmp.complete()
+
+							-- Check if cursor is inside quotes
+							local line_before_quote, quote_char, inside_quote = before:match("^(.-)([\"'])([^\"']*)$")
+							if quote_char and not inside_quote:find("/") then
+								-- If inside quotes in a non-path function and there is no slash '/', close CMP immediately
+								local smart_path = require("custom.smart_path")
+								local is_path_func = smart_path.is_path_context
+									and smart_path.is_path_context(line_before_quote)
+								if not is_path_func then
+									if cmp.visible() then
+										cmp.abort()
+									end
+									return
 								end
+							end
+
+							if before:match("[%w_%.%/%'%\"]$") then
+								cmp.complete()
 							else
 								if cmp.visible() then
 									cmp.abort()
 								end
 							end
-						end)
+						end, 80)
 					end, { "i", "s" }),
 
 					-- Auto-trigger completion on dot, because sometimes it bugged and did not show anything
