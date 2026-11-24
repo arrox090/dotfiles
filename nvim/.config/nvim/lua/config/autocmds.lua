@@ -47,3 +47,48 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 		end
 	end,
 })
+
+-- Setup colors for cmp kind and icons
+local function setup_cmp_highlights()
+	local kinds = {
+		"Text",
+		"Method",
+		"Function",
+		"Constructor",
+		"Field",
+		"Variable",
+		"Class",
+		"Interface",
+		"Module",
+		"Property",
+		"Unit",
+		"Value",
+		"Enum",
+		"Keyword",
+		"Snippet",
+		"Color",
+		"File",
+		"Reference",
+		"Folder",
+		"EnumMember",
+		"Constant",
+		"Struct",
+		"Event",
+		"Operator",
+		"TypeParameter",
+	}
+	for _, kind in ipairs(kinds) do
+		vim.api.nvim_set_hl(0, "CmpItemKind" .. kind .. "Icon", { link = "CmpItemKind" .. kind })
+	end
+
+	-- Distinct highlight colors for Folder vs File:
+	vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = "#89b4fa", bold = true })
+	vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = "#94e2d5" })
+end
+
+setup_cmp_highlights()
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = setup_cmp_highlights,
+})

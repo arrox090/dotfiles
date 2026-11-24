@@ -10,16 +10,15 @@ return {
 		},
 	},
 	{
+		"onsails/lspkind.nvim",
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			require("luasnip.loaders.from_vscode").lazy_load()
 			require("custom.smart_path").setup(cmp)
-
-			-- Distinct highlight colors for Folder vs File in completion menu:
-			vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = "#89b4fa", bold = true })
-			vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = "#94e2d5" })
 
 			cmp.setup({
 				snippet = {
@@ -119,11 +118,11 @@ return {
 				}),
 
 				formatting = {
-					format = function(entry, vim_item)
-						-- Remove the menu from showing
-						vim_item.menu = ""
-						return vim_item
-					end,
+					fields = { "icon", "abbr" },
+					format = require("lspkind").cmp_format({
+						maxwidth = 50,
+						ellipsis_char = "...",
+					}),
 				},
 
 				sources = cmp.config.sources({
@@ -181,18 +180,24 @@ return {
 
 						-- Auto-import demotion (local/in-scope symbols always beat unimported external modules)
 						function(entry1, entry2)
-							local item1 = entry1.completion_item
-							local item2 = entry2.completion_item
+							local function is_auto_import(entry)
+								local item = entry.completion_item
+								if not item then
+									return false
+								end
+								if item.additionalTextEdits and #item.additionalTextEdits > 0 then
+									return true
+								end
+								if item.data and item.data.autoImportText then
+									return true
+								end
+								return false
+							end
 
-							local is_auto_import1 = (
-								item1.additionalTextEdits ~= nil and #item1.additionalTextEdits > 0
-							) or (item1.data and item1.data.autoImportText ~= nil)
-							local is_auto_import2 = (
-								item2.additionalTextEdits ~= nil and #item2.additionalTextEdits > 0
-							) or (item2.data and item2.data.autoImportText ~= nil)
-
-							if is_auto_import1 ~= is_auto_import2 then
-								return not is_auto_import1
+							local a1 = is_auto_import(entry1)
+							local a2 = is_auto_import(entry2)
+							if a1 ~= a2 then
+								return not a1
 							end
 						end,
 
