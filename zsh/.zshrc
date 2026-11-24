@@ -45,8 +45,12 @@ zinit light jeffreytse/zsh-vi-mode
 # EVAL
 ###################################
 eval "$(tmuxifier init -)"
-eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+# Prevent recursive wrapping of zle-keymap-select when re-sourcing ~/.zshrc:
+zle -D zle-keymap-select 2>/dev/null
+eval "$(starship init zsh)"
+
 # eval "$(uv generate-shell-completion zsh)"
 
 ###################################
@@ -149,9 +153,7 @@ fzf-history-widget() {
 }
 zle -N fzf-history-widget
 
-function bind_keys_after_everything() {
-  bindkey -v
-
+function zvm_after_init() {
   # Remove not needed, conflicting keybinds
   bindkey -r '^L'
   bindkey -r '^K'
@@ -161,12 +163,10 @@ function bind_keys_after_everything() {
 
   bindkey '^R' fzf-history-widget
 
-  # Delete word backwards (Option + Backspace / Karabiner Option+Ctrl+O):
+  # Handle Option+Backspace (delete word backwards) across both DEL (^?) and BS (^H) terminals
   bindkey '^[^?' backward-kill-word
   bindkey '^[^H' backward-kill-word
 }
-
-add-zsh-hook precmd bind_keys_after_everything
 
 ###################################
 # OPTIONS
@@ -202,14 +202,6 @@ setopt INC_APPEND_HISTORY # save after each command
 setopt SHARE_HISTORY      # share history across terminals
 setopt HIST_IGNORE_DUPS   # ignore consecutive duplicates
 setopt HIST_REDUCE_BLANKS # strip the command string
-
-###################################
-# STARSHIP DOUBLE WRAPPING AFTER SOURCING FIX
-###################################
-if [[ -z ${functions['starship_zle-keymap-select-wrapped']+x} ]]; then
-  functions['starship_zle-keymap-select-wrapped']=$functions['zle-keymap-select']
-  zle -N zle-keymap-select starship_zle-keymap-select
-fi
 
 alias nvim-lazy='NVIM_APPNAME="nvim-lazyvim" nvim'
 # rm -rf ~/.config/nvim-lazyvim ~/.local/share/nvim-lazyvim ~/.cache/nvim-lazyvim ~/.local/state/nvim-lazyvim
@@ -247,13 +239,9 @@ TRAPUSR1() {
 
     if [[ -n "$msg" && -z "$_DOTFILES_NOTIFIED" ]]; then
       typeset -g _DOTFILES_NOTIFIED=1
-      if [[ -o zle ]] && zle; then
-        zle -I
-        print -P "$msg"
-        zle reset-prompt
-      else
-        print -P "$msg"
-      fi
+      zle -I 2>/dev/null
+      print -P "$msg"
+      zle -R 2>/dev/null
     fi
   fi
   return 0
@@ -274,8 +262,13 @@ _check_dotfiles_update() {
   local stamp_file="$cache_dir/dotfiles_last_check"
   local notify_file="$cache_dir/dotfiles_notify"
 
-  # 1. Quick cache display (instant, 0ms latency on startup if already known)
-  if [[ -f "$status_file" ]]; then
+  zmodload zsh/datetime 2>/dev/null
+  local now=$EPOCHSECONDS
+  local last_check=0
+  [[ -f "$stamp_file" ]] && read -r last_check <"$stamp_file"
+
+  # Only show cache if within 6h of last check
+  if ((now - last_check <= 21600)) && [[ -f "$status_file" ]]; then
     local target_sha msg
     {
       read -r target_sha
@@ -294,12 +287,7 @@ _check_dotfiles_update() {
     fi
   fi
 
-  # 2. Debounce logic (every 6 hours = 21600 seconds)
-  zmodload zsh/datetime 2>/dev/null
-  local now=$EPOCHSECONDS
-  local last_check=0
-  [[ -f "$stamp_file" ]] && read -r last_check <"$stamp_file"
-
+  # If over 6h then fetch asynchronously new state and send USR1 signal
   if ((now - last_check > 21600)); then
     print -r -- "$now" >"$stamp_file"
     local parent_pid=$$
@@ -353,7 +341,7 @@ _check_dotfiles_update() {
 
         touch "$notify_file"
 
-        # Signal the active interactive prompt to redraw with the banner
+        # Signal the active interactive prompt to redraw with the fresh banner
         kill -USR1 "$parent_pid" 2>/dev/null
       else
         rm -f "$status_file" "$notify_file"
