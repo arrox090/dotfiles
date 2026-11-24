@@ -131,7 +131,7 @@ return {
 						name = "nvim_lsp",
 						priority = 1000,
 						entry_filter = function(entry, ctx)
-							local item = entry:get_completion_item()
+							local item = entry.completion_item
 							local label = item.label or ""
 							local detail = item.detail or ""
 							local description = (item.labelDetails and item.labelDetails.description) or ""
@@ -178,6 +178,24 @@ return {
 					priority_weight = 2,
 					comparators = {
 						cmp.config.compare.offset,
+
+						-- Auto-import demotion (local/in-scope symbols always beat unimported external modules)
+						function(entry1, entry2)
+							local item1 = entry1.completion_item
+							local item2 = entry2.completion_item
+
+							local is_auto_import1 = (
+								item1.additionalTextEdits ~= nil and #item1.additionalTextEdits > 0
+							) or (item1.data and item1.data.autoImportText ~= nil)
+							local is_auto_import2 = (
+								item2.additionalTextEdits ~= nil and #item2.additionalTextEdits > 0
+							) or (item2.data and item2.data.autoImportText ~= nil)
+
+							if is_auto_import1 ~= is_auto_import2 then
+								return not is_auto_import1
+							end
+						end,
+
 						cmp.config.compare.exact,
 						cmp.config.compare.score,
 
