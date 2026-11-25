@@ -153,6 +153,14 @@ fzf-history-widget() {
 }
 zle -N fzf-history-widget
 
+# Paste contents in the same line not the next one
+_zvm_put_inline() {
+  CUTBUFFER="${CUTBUFFER#$'\n'}"
+  CUTBUFFER="${CUTBUFFER%$'\n'}"
+  zle vi-put-before
+}
+zle -N _zvm_put_inline
+
 function zvm_after_init() {
   # Remove not needed, conflicting keybinds
   bindkey -r '^L'
@@ -168,6 +176,11 @@ function zvm_after_init() {
   bindkey '^[^H' backward-kill-word
 }
 
+# For vicmd keybinds here so they are not overwritten
+function zvm_after_lazy_keybindings() {
+  zvm_bindkey vicmd 'p' _zvm_put_inline
+}
+
 ###################################
 # OPTIONS
 ###################################
@@ -175,6 +188,9 @@ setopt CORRECT
 
 # Make auto complete case insensitive
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# Remove highlight of pasted text
+zle_highlight+=(paste:none)
 
 ###################################
 # COPY TOOL FOR COPYING WHEN IN SSH (osc52)
