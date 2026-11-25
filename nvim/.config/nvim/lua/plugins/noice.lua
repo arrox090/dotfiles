@@ -6,6 +6,11 @@ return {
 	},
 	config = function()
 		require("noice").setup({
+			-- Disable builtin noice completions
+			popupmenu = {
+				enabled = false,
+			},
+
 			lsp = {
 				signature = {
 					enabled = true,
@@ -52,9 +57,5 @@ return {
 				return "<C-u>"
 			end
 		end, { silent = true, expr = true, desc = "Scroll doc up" })
-
-		-- Navigate cmdline popup completion (and history) with Down / Up:
-		vim.keymap.set("c", "<Down>", "<C-n>", { desc = "Next completion / history" })
-		vim.keymap.set("c", "<Up>", "<C-p>", { desc = "Prev completion / history" })
 	end,
 }
